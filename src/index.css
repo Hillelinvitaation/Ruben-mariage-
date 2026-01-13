@@ -223,3 +223,29 @@ body::before {
 .animate-fadeIn {
   animation: fadeIn 1s ease-out forwards;
 }
+
+/* Style RSVP - Faire-part imprimé */
+#rsvp {
+  background-color: #FFFEF9;
+}
+
+/* Style pour les selects dans RSVP - Apparence manuscrite */
+#rsvp select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%238B7355' fill-opacity='0.3' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.5rem center;
+  padding-right: 2rem;
+  cursor: pointer;
+}
+
+#rsvp select:focus {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%238B7355' fill-opacity='0.5' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+}
+
+/* Suppression des bordures natives sur focus */
+#rsvp input:focus,
+#rsvp select:focus,
+#rsvp textarea:focus {
+  box-shadow: none;
+  outline: none;
+}

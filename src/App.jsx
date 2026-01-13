@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { MapPin, Calendar, ChevronDown, Send, Menu, X, Star, Moon, Wine, Navigation, CalendarPlus, Users, Home } from 'lucide-react';
 
 export default function App() {
@@ -6,12 +6,30 @@ export default function App() {
   const [rsvpSent, setRsvpSent] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [showInvitation, setShowInvitation] = useState(false);
+  const audioRef = useRef(null);
 
   // --- RSVP ---
   const [guestMessage, setGuestMessage] = useState('');
+  const [rsvpData, setRsvpData] = useState({
+    prenom: '',
+    nom: '',
+    adultes: '1',
+    enfants: '0',
+    presence: 'oui', // 'oui' ou 'non'
+    houppa: false,
+    soiree: false
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // --- TIMER ---
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+
+  // Détection Chrome pour le texte hébreu
+  const isChrome = typeof window !== 'undefined' && /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+  // Texte hébreu original (même que sur natanel-ora.com)
+  const hebrewText = "הלכ לוקו ןתח לוק החמש לוקו ןושש לוק";
+  // Pour Chrome : utiliser le texte exact tel quel
+  const hebrewForChrome = "קול ששון וקול שמחה קול חתן וקול כלה";
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -45,6 +63,10 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-transparent text-stone-900 font-sans selection:bg-[#B8860B]/30 selection:text-stone-900 pb-20 md:pb-0">
+      {/* Audio pour la musique de fond */}
+      <audio ref={audioRef} loop>
+        <source src="/canon-in-d.mp3" type="audio/mpeg" />
+      </audio>
 
       {/* B"H Fixe */}
       <div className="fixed top-4 right-4 md:right-6 z-[60] text-[#B8860B]/40 text-xs font-serif select-none">B"H</div>
@@ -133,6 +155,10 @@ export default function App() {
               <button
                 onClick={() => {
                   setShowInvitation(true);
+                  // Lancer la musique
+                  if (audioRef.current) {
+                    audioRef.current.play().catch(err => console.log('Erreur lecture audio:', err));
+                  }
                   // Scroll automatique vers la section Familles après un court délai
                   setTimeout(() => {
                     document.getElementById('familles')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -175,13 +201,23 @@ export default function App() {
         }}></div>
         <div className="max-w-5xl mx-auto relative z-10">
 
-          {/* Arc Hébreu - Path Standard (Gauche -> Droite) avec texte inversé pour lecture correcte RTL */}
+          {/* Arc Hébreu - Correction pour Chrome : inverser l'ordre des mots avec chemin normal */}
           <div className="w-full flex justify-center mb-4 md:mb-6 card-text-animate">
             <svg viewBox="0 0 500 120" className="w-full max-w-lg md:max-w-2xl opacity-60">
-              <path id="curve-hebrew-top" d="M 50,120 Q 250,20 450,120" fill="transparent" />
-              <text width="500">
-                <textPath xlinkHref="#curve-hebrew-top" startOffset="50%" textAnchor="middle" className="text-lg md:text-2xl fill-[#8B7355]" style={{ fontFamily: 'serif' }}>
-                  הלכ לוקו ןתח לוק החמש לוקו ןושש לוק
+              <path 
+                id="curve-hebrew-top" 
+                d="M 50,120 Q 250,20 450,120" 
+                fill="transparent" 
+              />
+              <text width="500" {...(isChrome ? {} : { direction: "rtl", style: { direction: 'rtl' } })}>
+                <textPath 
+                  xlinkHref="#curve-hebrew-top"
+                  startOffset="50%" 
+                  textAnchor="middle" 
+                  className="text-lg md:text-2xl fill-[#8B7355]" 
+                  style={{ fontFamily: 'serif', ...(isChrome ? {} : { direction: 'rtl' }) }}
+                >
+                  {isChrome ? hebrewForChrome : hebrewText}
                 </textPath>
               </text>
             </svg>
@@ -288,74 +324,254 @@ export default function App() {
 
 
       {/* RSVP */}
-      < section id="rsvp" className="py-20 md:py-40 px-4 relative" >
-        <div className="max-w-2xl mx-auto relative z-10 card-premium p-8 md:p-16 rounded-sm">
-          <div className="text-center mb-10">
-            <h2 className="font-elegant text-4xl md:text-5xl text-stone-800 mb-3">R.S.V.P</h2>
-            <p className="text-[#B8860B] text-[10px] uppercase tracking-[0.25em]">Réponse souhaitée avant le 1er Juin</p>
+      <section id="rsvp" className="py-20 md:py-32 px-4 relative">
+        <div className="max-w-2xl mx-auto relative z-10 p-8 md:p-16" style={{ backgroundColor: '#FFFEF9' }}>
+          <div className="text-center mb-12">
+            <h2 className="font-elegant text-4xl md:text-5xl text-[#8B7355] mb-3 font-light">R.S.V.P</h2>
+            <div className="flex items-center justify-center gap-3 mt-5">
+              <span className="h-px w-12 bg-[#8B7355]/40"></span>
+              <p className="text-[#8B7355] text-[10px] uppercase tracking-[0.3em] font-medium">Réponse souhaitée dès réception</p>
+              <span className="h-px w-12 bg-[#8B7355]/40"></span>
+            </div>
           </div>
 
           {!rsvpSent ? (
-            <form onSubmit={(e) => { e.preventDefault(); setRsvpSent(true); }} className="space-y-8">
-              <div className="grid grid-cols-2 gap-6">
-                <div className="space-y-1">
-                  <label className="text-[9px] uppercase tracking-widest text-stone-400 ml-1">Prénom</label>
-                  <input type="text" required className="block w-full bg-stone-50 border-b border-stone-200 p-3 text-stone-800 text-sm focus:border-[#B8860B] focus:bg-white focus:outline-none transition-colors rounded-t-sm placeholder:text-stone-300" placeholder="Votre prénom" />
+            <form onSubmit={async (e) => { 
+              e.preventDefault(); 
+              
+              // Validation côté client
+              if (rsvpData.presence === 'oui' && !rsvpData.houppa && !rsvpData.soiree) {
+                alert('Veuillez sélectionner au moins la Houppa ou la Soirée si vous êtes présent(e).');
+                return;
+              }
+              
+              setIsSubmitting(true);
+              try {
+                const response = await fetch('http://localhost:3001/api/rsvp', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({
+                    prenom: rsvpData.prenom,
+                    nom: rsvpData.nom,
+                    adultes: rsvpData.adultes,
+                    enfants: rsvpData.enfants,
+                    presence: rsvpData.presence,
+                    houppa: rsvpData.houppa,
+                    soiree: rsvpData.soiree,
+                    message: guestMessage
+                  })
+                });
+
+                if (response.ok) {
+                  setRsvpSent(true);
+                } else {
+                  alert('Erreur lors de l\'envoi. Veuillez réessayer.');
+                }
+              } catch (error) {
+                console.error('Erreur:', error);
+                alert('Erreur de connexion. Assurez-vous que le serveur backend est démarré.');
+              } finally {
+                setIsSubmitting(false);
+              }
+            }} className="space-y-10">
+              {/* Nom et Prénom */}
+              <div className="grid grid-cols-2 gap-8">
+                <div className="space-y-2">
+                  <label className="text-[9px] uppercase tracking-[0.3em] text-[#8B7355] font-light">Prénom</label>
+                  <div className="relative">
+                    <input 
+                      type="text" 
+                      required 
+                      value={rsvpData.prenom}
+                      onChange={(e) => setRsvpData({...rsvpData, prenom: e.target.value})}
+                      className="block w-full bg-transparent border-0 border-b-2 border-[#8B7355]/50 p-2 text-[#5A4A3A] text-base font-elegant focus:border-[#8B7355]/80 focus:bg-transparent focus:outline-none transition-all duration-300 placeholder:text-[#8B7355]/50 placeholder:font-light" 
+                      placeholder="____________" 
+                    />
+                  </div>
                 </div>
-                <div className="space-y-1">
-                  <label className="text-[9px] uppercase tracking-widest text-stone-400 ml-1">Nom</label>
-                  <input type="text" required className="block w-full bg-stone-50 border-b border-stone-200 p-3 text-stone-800 text-sm focus:border-[#B8860B] focus:bg-white focus:outline-none transition-colors rounded-t-sm placeholder:text-stone-300" placeholder="Votre nom" />
+                <div className="space-y-2">
+                  <label className="text-[9px] uppercase tracking-[0.3em] text-[#8B7355] font-light">Nom</label>
+                  <div className="relative">
+                    <input 
+                      type="text" 
+                      required 
+                      value={rsvpData.nom}
+                      onChange={(e) => setRsvpData({...rsvpData, nom: e.target.value})}
+                      className="block w-full bg-transparent border-0 border-b-2 border-[#8B7355]/50 p-2 text-[#5A4A3A] text-base font-elegant focus:border-[#8B7355]/80 focus:bg-transparent focus:outline-none transition-all duration-300 placeholder:text-[#8B7355]/50 placeholder:font-light" 
+                      placeholder="____________" 
+                    />
+                  </div>
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-stone-400 text-[9px] uppercase tracking-widest mb-2 ml-1">Adultes</label>
-                  <select className="w-full bg-stone-50 border-b border-stone-200 p-3 text-stone-800 text-sm outline-none focus:border-[#B8860B] rounded-t-sm">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                    <option>6</option>
+              {/* Nombre d'invités */}
+              <div className="grid grid-cols-2 gap-8">
+                <div className="space-y-2">
+                  <label className="text-[9px] uppercase tracking-[0.3em] text-[#8B7355] font-light">Adultes</label>
+                  <select 
+                    value={rsvpData.adultes}
+                    onChange={(e) => setRsvpData({...rsvpData, adultes: e.target.value})}
+                    className="w-full bg-transparent border-0 border-b-2 border-[#8B7355]/50 p-2 text-[#5A4A3A] text-base font-elegant outline-none focus:border-[#8B7355]/80 transition-all duration-300 appearance-none cursor-pointer"
+                  >
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
                   </select>
                 </div>
-                <div>
-                  <label className="block text-stone-400 text-[9px] uppercase tracking-widest mb-2 ml-1">Enfants</label>
-                  <select className="w-full bg-stone-50 border-b border-stone-200 p-3 text-stone-800 text-sm outline-none focus:border-[#B8860B] rounded-t-sm">
-                    <option>0</option>
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                    <option>6</option>
-                    <option>7</option>
-                    <option>8</option>
-                    <option>9</option>
-                    <option>10</option>
-                    <option>11</option>
-                    <option>12</option>
+                <div className="space-y-2">
+                  <label className="text-[9px] uppercase tracking-[0.3em] text-[#8B7355] font-light">Enfants</label>
+                  <select 
+                    value={rsvpData.enfants}
+                    onChange={(e) => setRsvpData({...rsvpData, enfants: e.target.value})}
+                    className="w-full bg-transparent border-0 border-b-2 border-[#8B7355]/50 p-2 text-[#5A4A3A] text-base font-elegant outline-none focus:border-[#8B7355]/80 transition-all duration-300 appearance-none cursor-pointer"
+                  >
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
                   </select>
                 </div>
               </div>
 
-              <div className="space-y-2">
-                <label className="text-stone-400 text-[9px] uppercase tracking-widest ml-1">Un petit mot pour les mariés ?</label>
-                <textarea value={guestMessage} onChange={(e) => setGuestMessage(e.target.value)} className="w-full bg-stone-50 border border-stone-200 p-4 text-stone-800 font-elegant text-lg rounded-sm h-32 focus:border-[#B8860B] focus:outline-none focus:bg-white transition-colors resize-none placeholder:text-stone-300 italic" placeholder="Écrivez vos vœux ici..."></textarea>
+              {/* Présence */}
+              <div className="space-y-4 pt-2">
+                <label className="block text-[#8B7355] text-[9px] uppercase tracking-[0.3em] font-light mb-6">Confirmez votre présence</label>
+                <div className="flex gap-8 justify-center">
+                  <label className="flex items-center gap-3 cursor-pointer group">
+                    <input 
+                      type="radio" 
+                      name="presence" 
+                      value="oui"
+                      checked={rsvpData.presence === 'oui'}
+                      onChange={(e) => setRsvpData({...rsvpData, presence: e.target.value})}
+                      className="sr-only"
+                      required
+                    />
+                    <div className="flex items-center gap-2">
+                      <div className={`w-4 h-4 rounded-full border transition-all duration-300 ${rsvpData.presence === 'oui' ? 'border-[#8B7355]/50 bg-[#8B7355]/10' : 'border-[#8B7355]/20 bg-transparent'}`}>
+                        {rsvpData.presence === 'oui' && (
+                          <div className="w-full h-full rounded-full bg-[#8B7355]/30 m-0.5"></div>
+                        )}
+                      </div>
+                      <span className={`text-base font-elegant transition-colors ${rsvpData.presence === 'oui' ? 'text-[#5A4A3A]' : 'text-[#8B7355]/50'}`}>
+                        Oui, je serai présent(e)
+                      </span>
+                    </div>
+                  </label>
+                  <span className="text-[#8B7355]/20 font-elegant">•</span>
+                  <label className="flex items-center gap-3 cursor-pointer group">
+                    <input 
+                      type="radio" 
+                      name="presence" 
+                      value="non"
+                      checked={rsvpData.presence === 'non'}
+                      onChange={(e) => setRsvpData({...rsvpData, presence: e.target.value, houppa: false, soiree: false})}
+                      className="sr-only"
+                      required
+                    />
+                    <div className="flex items-center gap-2">
+                      <div className={`w-4 h-4 rounded-full border transition-all duration-300 ${rsvpData.presence === 'non' ? 'border-[#8B7355]/50 bg-[#8B7355]/10' : 'border-[#8B7355]/20 bg-transparent'}`}>
+                        {rsvpData.presence === 'non' && (
+                          <div className="w-full h-full rounded-full bg-[#8B7355]/30 m-0.5"></div>
+                        )}
+                      </div>
+                      <span className={`text-base font-elegant transition-colors ${rsvpData.presence === 'non' ? 'text-[#5A4A3A]' : 'text-[#8B7355]/50'}`}>
+                        Non, je ne peux pas venir
+                      </span>
+                    </div>
+                  </label>
+                </div>
               </div>
 
-              <button className="w-full bg-[#1A1A1A] text-[#B8860B] py-4 uppercase tracking-[0.25em] text-xs font-medium rounded-sm shadow-lg hover:bg-black transition-all hover:shadow-xl mt-4">
-                Confirmer ma présence
-              </button>
+              {/* Options Houppa & Soirée (seulement si présent) */}
+              {rsvpData.presence === 'oui' && (
+                <div className="space-y-4 pt-4 border-t border-[#8B7355]/30">
+                  <label className="block text-[#8B7355] text-[9px] uppercase tracking-[0.3em] font-light mb-5">Je serai présent(e) à :</label>
+                  <div className="space-y-4 pl-2">
+                    <label className="flex items-center gap-3 cursor-pointer group">
+                      <input 
+                        type="checkbox" 
+                        checked={rsvpData.houppa}
+                        onChange={(e) => setRsvpData({...rsvpData, houppa: e.target.checked})}
+                        className="sr-only"
+                      />
+                      <div className={`w-4 h-4 border rounded-sm transition-all duration-300 flex items-center justify-center ${rsvpData.houppa ? 'border-[#8B7355]/40 bg-[#8B7355]/5' : 'border-[#8B7355]/20 bg-transparent'}`}>
+                        {rsvpData.houppa && (
+                          <div className="w-2 h-2 bg-[#8B7355]/40 rounded-sm"></div>
+                        )}
+                      </div>
+                      <span className={`text-base font-elegant transition-colors ${rsvpData.houppa ? 'text-[#5A4A3A]' : 'text-[#8B7355]/50'}`}>
+                        Je serai présent(e) à la Houppa
+                      </span>
+                    </label>
+                    <label className="flex items-center gap-3 cursor-pointer group">
+                      <input 
+                        type="checkbox" 
+                        checked={rsvpData.soiree}
+                        onChange={(e) => setRsvpData({...rsvpData, soiree: e.target.checked})}
+                        className="sr-only"
+                      />
+                      <div className={`w-4 h-4 border rounded-sm transition-all duration-300 flex items-center justify-center ${rsvpData.soiree ? 'border-[#8B7355]/40 bg-[#8B7355]/5' : 'border-[#8B7355]/20 bg-transparent'}`}>
+                        {rsvpData.soiree && (
+                          <div className="w-2 h-2 bg-[#8B7355]/40 rounded-sm"></div>
+                        )}
+                      </div>
+                      <span className={`text-base font-elegant transition-colors ${rsvpData.soiree ? 'text-[#5A4A3A]' : 'text-[#8B7355]/50'}`}>
+                        Je serai présent(e) à la soirée
+                      </span>
+                    </label>
+                  </div>
+                </div>
+              )}
+
+              {/* Message (obligatoire si présent) */}
+              <div className="space-y-2 pt-4 border-t border-[#8B7355]/30">
+                <label className="text-[#8B7355] text-[9px] uppercase tracking-[0.3em] font-light">
+                  Un petit mot pour les mariés {rsvpData.presence === 'oui' ? '*' : ''}
+                </label>
+                <textarea 
+                  value={guestMessage}
+                  onChange={(e) => setGuestMessage(e.target.value)} 
+                  required={rsvpData.presence === 'oui'}
+                  className="block w-full bg-transparent border-0 border-b-2 border-[#8B7355]/50 p-2 text-[#5A4A3A] font-elegant text-base h-24 focus:border-[#8B7355]/80 focus:outline-none focus:bg-transparent transition-all duration-300 resize-none placeholder:text-[#8B7355]/50 placeholder:font-light placeholder:italic" 
+                  placeholder={rsvpData.presence === 'oui' ? "..." : "..."}
+                ></textarea>
+              </div>
+
+              {/* Bouton de soumission */}
+              <div className="pt-10 flex justify-center">
+                <button 
+                  type="submit"
+                  disabled={isSubmitting || (rsvpData.presence === 'oui' && !rsvpData.houppa && !rsvpData.soiree)}
+                  className="px-10 py-3 border-2 border-[#8B7355]/70 text-[#8B7355] uppercase tracking-[0.25em] text-[10px] font-medium transition-all duration-300 hover:border-[#8B7355] hover:text-[#5A4A3A] hover:bg-[#8B7355]/5 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:border-[#8B7355]/70 disabled:hover:text-[#8B7355] disabled:hover:bg-transparent"
+                >
+                  {isSubmitting ? 'Envoi en cours...' : 'Confirmer ma réponse'}
+                </button>
+              </div>
             </form>
           ) : (
-            <div className="text-center py-20 bg-white/50 rounded-sm animate-in fade-in duration-700">
-              <div className="w-16 h-16 bg-[#B8860B]/10 rounded-full flex items-center justify-center mx-auto mb-6">
-                <Wine className="text-[#B8860B] w-8 h-8" />
+            <div className="text-center py-16 animate-fadeIn">
+              <div className="flex items-center justify-center gap-3 mb-6">
+                <span className="h-px w-12 bg-[#8B7355]/20"></span>
+                <Wine className="text-[#8B7355]/50 w-6 h-6" />
+                <span className="h-px w-12 bg-[#8B7355]/20"></span>
               </div>
-              <span className="font-names text-5xl text-[#B8860B] block mb-4">Toda Raba !</span>
-              <p className="text-stone-600 font-light text-lg">Votre réponse a bien été enregistrée.<br />Nous avons hâte de vous retrouver.</p>
+              <span className="font-names text-4xl md:text-5xl text-[#8B7355] block mb-6 font-light">Toda Raba !</span>
+              <p className="text-[#5A4A3A] font-elegant text-base leading-relaxed">Votre réponse a bien été enregistrée.<br />Nous avons hâte de vous retrouver.</p>
             </div>
           )}
         </div>

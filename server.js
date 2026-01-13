@@ -11,7 +11,13 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = 3001;
 
-app.use(cors());
+// Configuration CORS pour production
+app.use(cors({
+  origin: process.env.NODE_ENV === 'production' 
+    ? ['https://reouven-sarah.com', 'https://www.reouven-sarah.com']
+    : '*',
+  credentials: true
+}));
 app.use(express.json());
 
 const EXCEL_FILE = path.join(__dirname, 'rsvp-reponses.xlsx');

@@ -2,6 +2,10 @@ import React, { useState, useEffect, useRef } from 'react';
 import { MapPin, Calendar, ChevronDown, Send, Menu, X, Star, Moon, Wine, Navigation, CalendarPlus, Users, Home } from 'lucide-react';
 
 export default function App() {
+  // URL de l'API - Détection automatique de l'environnement
+  const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+    ? 'http://localhost:3001'
+    : 'https://reouven-sarah.com';
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [rsvpSent, setRsvpSent] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -348,7 +352,7 @@ export default function App() {
               
               setIsSubmitting(true);
               try {
-                const response = await fetch('http://localhost:3001/api/rsvp', {
+                const response = await fetch(`${API_URL}/api/rsvp`, {
                   method: 'POST',
                   headers: {
                     'Content-Type': 'application/json',

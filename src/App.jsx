@@ -257,10 +257,11 @@ export default function App() {
               <p className="font-sans text-sm md:text-lg tracking-[0.25em] text-[#B8860B] uppercase font-semibold">
                 Mardi 10 Mars 2026
               </p>
+              <p className="font-sans text-sm md:text-lg tracking-[0.25em] text-[#B8860B] uppercase font-semibold">
+                17H30 PRÉCISES
+              </p>
               <div className="flex flex-col md:flex-row items-center justify-center gap-2 md:gap-6 text-stone-500 font-sans text-xs md:text-sm tracking-widest uppercase">
                 <span>21 Adar 5786</span>
-                <span className="hidden md:inline w-1 h-1 rounded-full bg-[#B8860B]/40"></span>
-                <span>À 17h30 précises</span>
               </div>
             </div>
 

@@ -1,0 +1,225 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Variables de couleurs premium */
+:root {
+  --gold-primary: #B8860B;
+  --gold-light: #D4A84B;
+  --gold-dark: #8B6914;
+  --champagne: #F7E7CE;
+  --cream: #FFFEF9;
+  --burgundy: #722F37;
+  --charcoal: #2B2A2A;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #FAF9F7;
+  color: var(--charcoal);
+  margin: 0;
+  overflow-x: hidden;
+  position: relative;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  /* Fond neutre - plus d'image globale */
+  background-color: transparent;
+}
+
+/* Police élégante classique - Corps de texte */
+.font-elegant {
+  font-family: "Cormorant Garamond", "Playfair Display", Georgia, serif;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  font-style: normal;
+  text-rendering: optimizeLegibility;
+}
+
+/* Police ultra-élégante pour les noms des mariés - Style Vogue/Editorial */
+.font-names {
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 500;
+  font-style: italic;
+  letter-spacing: -0.02em;
+  text-rendering: optimizeLegibility;
+  padding-bottom: 0.1em;
+}
+
+/* Calligraphie élégante pour mariage - Style Script Luxueux */
+.font-wedding-script {
+  font-family: "Allura", "Great Vibes", "Dancing Script", "Tangerine", cursive;
+  font-weight: 400;
+  font-style: normal;
+  letter-spacing: 0.05em;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* EFFET SOLID GOLD (Or Mat Chic) - Editorial Style */
+.text-gold-foil {
+  color: #B8860B;
+  /* Dark Goldenrod - Mat et profond */
+  background: none;
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+  -webkit-text-fill-color: initial;
+
+  text-shadow: none;
+  filter: none;
+
+  position: relative;
+  display: inline-block;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+
+/* Carte effet Papier d'Art / Verre subtil */
+.card-premium {
+  background-color: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.05),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+}
+
+/* Séparateurs fins */
+.separator-gold {
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(184, 134, 11, 0.4), transparent);
+  border: none;
+}
+
+/* Optimisation scroll fluide */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Optimisation images de fond */
+.hero-bg {
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+}
+
+@media (max-width: 767px) {
+  .hero-bg {
+    background-attachment: scroll !important;
+  }
+}
+
+/* Optimisation fond floral embossé pour meilleure visibilité */
+#familles {
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  min-height: 100vh;
+}
+
+/* Amélioration visibilité sur mobile */
+@media (max-width: 767px) {
+  #familles {
+    background-size: cover;
+    background-position: center center;
+    /* Légère amélioration du contraste pour mobile */
+    background-blend-mode: normal;
+  }
+  
+  /* Assure que le fond est bien visible même sur petits écrans */
+  #familles::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.02) 50%, rgba(255,255,255,0) 100%);
+    pointer-events: none;
+    z-index: 1;
+  }
+}
+
+/* Animations élégantes pour le texte de la carte */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Classes d'animation pour le texte de la carte */
+.card-text-animate {
+  animation: fadeInUp 1s ease-out forwards;
+  opacity: 0;
+}
+
+.card-text-animate-delay-1 {
+  animation: fadeInUp 1s ease-out 0.2s forwards;
+  opacity: 0;
+}
+
+.card-text-animate-delay-2 {
+  animation: fadeInUp 1s ease-out 0.4s forwards;
+  opacity: 0;
+}
+
+.card-text-animate-delay-3 {
+  animation: fadeInUp 1s ease-out 0.6s forwards;
+  opacity: 0;
+}
+
+.card-text-animate-delay-4 {
+  animation: fadeInUp 1s ease-out 0.8s forwards;
+  opacity: 0;
+}
+
+.card-text-animate-delay-5 {
+  animation: fadeInUp 1s ease-out 1s forwards;
+  opacity: 0;
+}
+
+.card-text-animate-delay-6 {
+  animation: fadeInUp 1s ease-out 1.2s forwards;
+  opacity: 0;
+}
+
+/* Animation pour la révélation de l'invitation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 1s ease-out forwards;
+}

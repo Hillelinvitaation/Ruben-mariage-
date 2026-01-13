@@ -40,7 +40,7 @@ export default function App() {
     window.addEventListener('scroll', handleScroll);
 
     // Date du mariage : 10 Mars 2026
-    const weddingDate = new Date('2026-03-10T17:30:00');
+    const weddingDate = new Date('2026-03-10T19:30:00');
 
     const timer = setInterval(() => {
       const now = new Date();
@@ -257,22 +257,24 @@ export default function App() {
             </p>
 
             {/* Date/Heure - Condensé */}
-            <div className="py-2 md:py-4 mt-0 space-y-2 card-text-animate-delay-5">
-              <p className="font-sans text-sm md:text-lg tracking-[0.25em] text-[#B8860B] uppercase font-semibold">
-                Mardi 10 Mars 2026
-              </p>
-              <p className="font-sans text-sm md:text-lg tracking-[0.25em] text-[#B8860B] uppercase font-semibold">
-                17H30 PRÉCISES
-              </p>
-              <div className="flex flex-col md:flex-row items-center justify-center gap-2 md:gap-6 text-stone-500 font-sans text-xs md:text-sm tracking-widest uppercase">
-                <span>21 Adar 5786</span>
+            <div className="py-2 md:py-4 mt-0 space-y-3 card-text-animate-delay-5">
+              <div className="flex flex-col md:flex-row items-center justify-center gap-3 md:gap-6">
+                <p className="font-serif text-lg md:text-2xl text-[#B8860B] font-semibold tracking-wide">
+                  Mardi <span className="text-2xl md:text-3xl">10</span> Mars 2026
+                </p>
+                <span className="text-stone-500 font-sans text-sm md:text-base">21 Adar 5786</span>
               </div>
+              <p className="font-serif text-lg md:text-2xl text-[#B8860B] font-semibold tracking-wide">
+                19H30 précises
+              </p>
+              <p className="font-serif text-lg md:text-3xl text-stone-600 italic font-light leading-relaxed mt-2">
+                Ainsi qu'à la réception qui suivra.
+              </p>
             </div>
 
             <div className="mt-4 md:mt-8 opacity-80 card-text-animate-delay-6">
               <p className="font-serif italic text-base md:text-xl text-stone-600">A ma mère qui me manque…</p>
               <p className="font-serif italic text-base md:text-xl text-stone-600 mt-0">et à nos grands-parents si chers à nos cœurs.</p>
-              <p className="font-serif text-sm md:text-xl text-[#B8860B] mt-2 font-medium">בית נאמן בישראל</p>
             </div>
           </div>
         </div>

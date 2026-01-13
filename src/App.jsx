@@ -109,13 +109,13 @@ export default function App() {
             </span>
           </div>
 
-          {/* Noms avec effet Solid Gold spectaculaire */}
-          <div className="flex flex-row items-center justify-center gap-[2vw] md:gap-8 mb-8 md:mb-12 relative z-10 w-full whitespace-nowrap overflow-visible">
-            <h1 className="font-names text-[11vw] md:text-[5.5rem] lg:text-[7.5rem] text-gold-foil leading-[0.8] tracking-normal">
+          {/* Noms avec calligraphie élégante */}
+          <div className="flex flex-row items-center justify-center gap-[2vw] md:gap-6 mb-8 md:mb-12 relative z-10 w-full whitespace-nowrap overflow-visible">
+            <h1 className="font-wedding-script text-[12vw] md:text-[6rem] lg:text-[8rem] text-gold-foil leading-[0.85] tracking-wide">
               Reouven
             </h1>
-            <div className="text-[3vw] md:text-3xl font-elegant text-[#8B6914]/60 italic font-light mt-1">&</div>
-            <h1 className="font-names text-[11vw] md:text-[5.5rem] lg:text-[7.5rem] text-gold-foil leading-[0.8] tracking-normal">
+            <div className="text-[2.5vw] md:text-2xl lg:text-3xl font-wedding-script text-[#8B6914]/50 mt-1">&</div>
+            <h1 className="font-wedding-script text-[12vw] md:text-[6rem] lg:text-[8rem] text-gold-foil leading-[0.85] tracking-wide">
               Sarah
             </h1>
           </div>
@@ -244,7 +244,7 @@ export default function App() {
             {/* Prénoms en Calligraphie Élégante */}
             <div className="py-2 md:py-6 relative card-text-animate-delay-3">
               <h2 className="font-wedding-script text-7xl md:text-9xl leading-none mt-2 md:mt-4 text-[#B8860B] tracking-wide">
-                Ruben <span className="text-5xl md:text-7xl align-middle opacity-70 text-[#a89078]">&</span> Sarah
+                Reouven <span className="text-5xl md:text-7xl align-middle opacity-70 text-[#a89078]">&</span> Sarah
               </h2>
             </div>
 

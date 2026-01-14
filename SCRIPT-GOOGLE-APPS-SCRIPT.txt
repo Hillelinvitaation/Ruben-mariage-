@@ -1,0 +1,216 @@
+// ID de ta feuille Google Sheets
+const SHEET_ID = '1ADk109prgYitppSynpeoH1rNq6c28Bklpq7LVGNRpVo';
+
+// Fonction principale pour recevoir les données POST
+function doPost(e) {
+  try {
+    // Logger pour debug (visible dans l'onglet Exécutions)
+    Logger.log('doPost appelé');
+    Logger.log('e.parameter: ' + JSON.stringify(e.parameter));
+    Logger.log('e.postData: ' + JSON.stringify(e.postData));
+    
+    let data;
+    
+    // Essayer d'abord avec les paramètres (FormData / URL-encoded)
+    if (e.parameter && Object.keys(e.parameter).length > 0) {
+      Logger.log('Utilisation des paramètres');
+      data = {
+        prenom: e.parameter.prenom || '',
+        nom: e.parameter.nom || '',
+        adultes: e.parameter.adultes || '0',
+        enfants: e.parameter.enfants || '0',
+        presence: e.parameter.presence || 'non',
+        houppa: e.parameter.houppa === 'true',
+        soiree: e.parameter.soiree === 'true',
+        message: e.parameter.message || ''
+      };
+      Logger.log('Données depuis paramètres: ' + JSON.stringify(data));
+    }
+    // Sinon essayer avec JSON dans postData
+    else if (e.postData && e.postData.contents) {
+      Logger.log('Utilisation de postData.contents');
+      try {
+        data = JSON.parse(e.postData.contents);
+        Logger.log('Données parsées JSON: ' + JSON.stringify(data));
+      } catch (parseError) {
+        Logger.log('Erreur parsing JSON: ' + parseError.toString());
+        throw new Error('Erreur parsing JSON: ' + parseError.toString());
+      }
+    } else {
+      throw new Error('Aucune donnée POST reçue');
+    }
+    
+    // Ouvrir le Google Sheet
+    const ss = SpreadsheetApp.openById(SHEET_ID);
+    let sheet = ss.getSheetByName('Réponses');
+    
+    // Si la feuille n'existe pas, la créer
+    if (!sheet) {
+      Logger.log('Création de la feuille Réponses');
+      sheet = ss.insertSheet('Réponses');
+      // Créer les en-têtes
+      sheet.getRange(1, 1, 1, 11).setValues([[
+        'Date', 'Heure', 'Prénom', 'Nom', 'Présence', 'Houppa', 'Soirée', 
+        'Adultes', 'Enfants', 'Total Invités', 'Message'
+      ]]);
+      // Style des en-têtes
+      const headerRange = sheet.getRange(1, 1, 1, 11);
+      headerRange.setBackground('#B8860B');
+      headerRange.setFontColor('#FFFFFF');
+      headerRange.setFontWeight('bold');
+      headerRange.setHorizontalAlignment('center');
+    }
+    
+    // Date et heure actuelles
+    const now = new Date();
+    const date = Utilities.formatDate(now, Session.getScriptTimeZone(), 'dd/MM/yyyy');
+    const time = Utilities.formatDate(now, Session.getScriptTimeZone(), 'HH:mm:ss');
+    
+    // Calculer le total
+    const total = (data.presence === 'oui' ? (parseInt(data.adultes) + parseInt(data.enfants)) : 0);
+    
+    // Préparer la nouvelle ligne
+    const newRow = [
+      date,
+      time,
+      data.prenom || '',
+      data.nom || '',
+      data.presence === 'oui' ? 'Oui' : 'Non',
+      data.houppa ? 'Oui' : 'Non',
+      data.soiree ? 'Oui' : 'Non',
+      data.presence === 'oui' ? parseInt(data.adultes) : 0,
+      data.presence === 'oui' ? parseInt(data.enfants) : 0,
+      total,
+      data.message || ''
+    ];
+    
+    Logger.log('Nouvelle ligne à ajouter: ' + JSON.stringify(newRow));
+    
+    // Ajouter la ligne
+    sheet.appendRow(newRow);
+    Logger.log('Ligne ajoutée avec succès');
+    
+    // Mettre à jour le résumé
+    try {
+      updateSummary(ss);
+      Logger.log('Résumé mis à jour');
+    } catch (summaryError) {
+      Logger.log('Erreur mise à jour résumé: ' + summaryError.toString());
+      // On continue quand même
+    }
+    
+    // Retourner une réponse de succès avec headers CORS
+    const output = ContentService.createTextOutput(JSON.stringify({
+      success: true,
+      message: 'Réponse enregistrée avec succès'
+    }));
+    output.setMimeType(ContentService.MimeType.JSON);
+    return output;
+    
+  } catch (error) {
+    Logger.log('ERREUR: ' + error.toString());
+    Logger.log('Stack: ' + error.stack);
+    
+    // Retourner une erreur avec headers CORS
+    const output = ContentService.createTextOutput(JSON.stringify({
+      success: false,
+      error: error.toString(),
+      stack: error.stack
+    }));
+    output.setMimeType(ContentService.MimeType.JSON);
+    return output;
+  }
+}
+
+// Fonction pour mettre à jour le résumé
+function updateSummary(ss) {
+  let summarySheet = ss.getSheetByName('Résumé');
+  if (!summarySheet) {
+    summarySheet = ss.insertSheet('Résumé');
+  } else {
+    summarySheet.clear();
+  }
+  
+  const dataSheet = ss.getSheetByName('Réponses');
+  const data = dataSheet.getDataRange().getValues();
+  
+  // Sauter l'en-tête
+  let totalAdultes = 0;
+  let totalEnfants = 0;
+  let totalPersonnes = 0;
+  let nombreFamilles = 0;
+  let nombrePresents = 0;
+  let nombreAbsents = 0;
+  let totalHouppa = 0;
+  let totalSoiree = 0;
+  
+  for (let i = 1; i < data.length; i++) {
+    const row = data[i];
+    const presence = row[4]; // Présence
+    const houppa = row[5]; // Houppa
+    const soiree = row[6]; // Soirée
+    const adultes = row[7] || 0; // Adultes
+    const enfants = row[8] || 0; // Enfants
+    
+    nombreFamilles++;
+    
+    if (presence === 'Oui') {
+      nombrePresents++;
+      totalAdultes += adultes;
+      totalEnfants += enfants;
+      totalPersonnes += (adultes + enfants);
+      
+      if (houppa === 'Oui') totalHouppa++;
+      if (soiree === 'Oui') totalSoiree++;
+    } else {
+      nombreAbsents++;
+    }
+  }
+  
+  // Créer le résumé
+  summarySheet.getRange(1, 1, 1, 2).setValues([['RÉSUMÉ DES INVITATIONS', '']]);
+  summarySheet.getRange(2, 1, 1, 2).setValues([['', '']]);
+  summarySheet.getRange(3, 1, 1, 2).setValues([['GÉNÉRAL', '']]);
+  summarySheet.getRange(4, 1).setValue('Nombre de familles');
+  summarySheet.getRange(4, 2).setValue(nombreFamilles);
+  summarySheet.getRange(5, 1).setValue('Familles présentes');
+  summarySheet.getRange(5, 2).setValue(nombrePresents);
+  summarySheet.getRange(6, 1).setValue('Familles absentes');
+  summarySheet.getRange(6, 2).setValue(nombreAbsents);
+  summarySheet.getRange(7, 1, 1, 2).setValues([['', '']]);
+  summarySheet.getRange(8, 1, 1, 2).setValues([['TOTAUX GÉNÉRAUX', '']]);
+  summarySheet.getRange(9, 1).setValue('Total adultes');
+  summarySheet.getRange(9, 2).setValue(totalAdultes);
+  summarySheet.getRange(10, 1).setValue('Total enfants');
+  summarySheet.getRange(10, 2).setValue(totalEnfants);
+  summarySheet.getRange(11, 1).setValue('TOTAL INVITÉS');
+  summarySheet.getRange(11, 2).setValue(totalPersonnes);
+  summarySheet.getRange(12, 1, 1, 2).setValues([['', '']]);
+  summarySheet.getRange(13, 1, 1, 2).setValues([['HOUPPA', '']]);
+  summarySheet.getRange(14, 1).setValue('Familles présentes à la Houppa');
+  summarySheet.getRange(14, 2).setValue(totalHouppa);
+  summarySheet.getRange(15, 1, 1, 2).setValues([['', '']]);
+  summarySheet.getRange(16, 1, 1, 2).setValues([['SOIRÉE', '']]);
+  summarySheet.getRange(17, 1).setValue('Familles présentes à la soirée');
+  summarySheet.getRange(17, 2).setValue(totalSoiree);
+  
+  // Style
+  summarySheet.getRange(1, 1, 1, 2).merge().setBackground('#FFF7CE').setFontWeight('bold').setFontSize(16);
+  summarySheet.getRange(3, 1, 1, 2).merge().setBackground('#FFF7CE').setFontWeight('bold');
+  summarySheet.getRange(8, 1, 1, 2).merge().setBackground('#FFF7CE').setFontWeight('bold');
+  summarySheet.getRange(11, 1, 1, 2).merge().setBackground('#B8860B').setFontColor('#FFFFFF').setFontWeight('bold').setFontSize(14);
+  summarySheet.getRange(13, 1, 1, 2).merge().setBackground('#FFF7CE').setFontWeight('bold');
+  summarySheet.getRange(16, 1, 1, 2).merge().setBackground('#FFF7CE').setFontWeight('bold');
+  
+  // Largeur des colonnes
+  summarySheet.setColumnWidth(1, 250);
+  summarySheet.setColumnWidth(2, 150);
+}
+
+// Fonction pour tester (optionnel)
+function doGet(e) {
+  return ContentService.createTextOutput(JSON.stringify({
+    success: true,
+    message: 'Google Apps Script fonctionne !'
+  })).setMimeType(ContentService.MimeType.JSON);
+}

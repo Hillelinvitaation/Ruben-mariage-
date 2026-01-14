@@ -590,7 +590,9 @@ export default function App() {
         <p className="font-names text-3xl md:text-4xl mb-6 tracking-wide text-[#B8860B]">Reouven & Sarah</p>
         <p className="text-[10px] uppercase tracking-[0.3em] text-stone-400">10 . 03 . 2026 </p>
         <br></br>
-         <p className="text-[10px] uppercase tracking-[0.3em] text-stone-400"> Réaliser par Hillel Amzallag +972-53-256-9935 </p>
+         <p className="text-[10px] uppercase tracking-[0.3em] text-stone-400"> Réaliser par Hillel Amzallag</p>
+        <br></br>
+           <p>+972-53-256-9935 </p>
       </footer >
 
       {/* BARRE NAVIGATION MOBILE (Type App) */}

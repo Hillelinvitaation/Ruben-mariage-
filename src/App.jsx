@@ -592,7 +592,7 @@ export default function App() {
         <br></br>
          <p className="text-[10px] uppercase tracking-[0.3em] text-stone-400"> Réaliser par Hillel Amzallag</p>
         <br></br>
-           <p>+972-53-256-9935 </p>
+           <p className="text-[10px] uppercase tracking-[0.3em] text-stone-400">+972-53-256-9935 </p>
       </footer >
 
       {/* BARRE NAVIGATION MOBILE (Type App) */}

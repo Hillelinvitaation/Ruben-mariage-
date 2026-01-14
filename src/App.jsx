@@ -588,8 +588,8 @@ export default function App() {
       {/* FOOTER */}
       < footer className="bg-white/80 backdrop-blur-md py-12 md:py-20 text-center border-t border-[#B8860B]/10" >
         <p className="font-names text-3xl md:text-4xl mb-6 tracking-wide text-[#B8860B]">Reouven & Sarah</p>
-        <p className="text-[10px] uppercase tracking-[0.3em] text-stone-400">10 . 03 . 2026 
-         Réaliser par Hillel Amzallag +972-53-256-9935 </p>
+        <p className="text-[10px] uppercase tracking-[0.3em] text-stone-400">10 . 03 . 2026 </p>
+         <p className="text-[10px] uppercase tracking-[0.3em] text-stone-400"> Réaliser par Hillel Amzallag +972-53-256-9935 </p>
       </footer >
 
       {/* BARRE NAVIGATION MOBILE (Type App) */}

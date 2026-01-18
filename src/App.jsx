@@ -455,7 +455,7 @@ export default function App() {
                 <span className="text-stone-500 font-sans text-sm md:text-base">21 Adar 5786</span>
               </div>
               <p className="font-serif text-lg md:text-2xl text-[#B8860B] font-semibold tracking-wide">
-                {language === 'he' ? '19:30 בדיוק' : '19H30 précises'}
+                {language === 'he' ? '19:00 בדיוק' : '19H00 précises'}
               </p>
               <p className="font-serif text-lg md:text-3xl text-stone-600 italic font-light leading-relaxed mt-2">
                 {t.ainsiQuaLaReception}

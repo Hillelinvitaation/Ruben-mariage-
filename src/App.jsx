@@ -26,12 +26,135 @@ export default function App() {
   // --- TIMER ---
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
+  // --- LANGUE ---
+  const [language, setLanguage] = useState('fr'); // 'fr' par défaut (français)
+
   // Détection Chrome pour le texte hébreu
   const isChrome = typeof window !== 'undefined' && /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
   // Texte hébreu original (même que sur natanel-ora.com)
   const hebrewText = "הלכ לוקו ןתח לוק החמש לוקו ןושש לוק";
   // Pour Chrome : utiliser le texte exact tel quel
   const hebrewForChrome = "קול ששון וקול שמחה קול חתן וקול כלה";
+
+  // --- DICTIONNAIRE DE TRADUCTIONS ---
+  const translations = {
+    he: {
+      menu: ['משפחות', 'טקס', 'מיקום', 'אישור הגעה'],
+      saveTheDate: 'שמור את התאריך',
+      mardi10Mars2026: 'יום שלישי 10 מרץ 2026',
+      salleOdeon: 'אולם אודאון • עמק חפר',
+      voirInvitation: 'צפה בהזמנה',
+      jours: 'ימים',
+      heures: 'שעות',
+      min: 'דקות',
+      sec: 'שניות',
+      remercient: 'מודים ל',
+      hachem: 'השם',
+      convier: 'על הזכות להזמין אתכם לחתונת ילדיהם ונכדיהם',
+      etVousPrient: 'ומבקשים מכם בכבוד להשתתף בחופה',
+      quiSeraCelebree: 'שתחגג ב',
+      ainsiQuaLaReception: 'וכך גם במסיבה שאחרי.',
+      aMaMere: 'לאמי החסרה לי...',
+      etAGrandsParents: 'ולסבים היקרים לליבנו.',
+      jeSuisAMonBienaime: 'אני לדודי ודודי לי',
+      lieuException: 'מקום יוצא דופן',
+      salleOdeonTitle: 'אולם אודאון',
+      cadreEnchanteur: 'מסגרת קסומה לחגוג את האיחוד שלנו.',
+      adresse: 'אודאון איוונט גרדן\nרחוב המסיק 6, עמק חפר',
+      ajouterAgenda: 'הוסף ללוח שנה',
+      yAllerWaze: 'לך עם ווייז',
+      rsvp: 'אישור הגעה',
+      reponseSouhaitee: 'תשובה מבוקשת מייד עם קבלה',
+      prenom: 'שם פרטי',
+      nom: 'שם משפחה',
+      adultes: 'מבוגרים',
+      enfants: 'ילדים',
+      confirmezPresence: 'אשר את נוכחותך',
+      ouiPresent: 'כן, אהיה נוכח/ת',
+      nonPresent: 'לא, אני לא יכול/ה להגיע',
+      jeSeraiPresentA: 'אהיה נוכח/ת ב:',
+      jeSeraiPresentHouppa: 'אהיה נוכח/ת בחופה',
+      jeSeraiPresentSoiree: 'אהיה נוכח/ת במסיבה',
+      petitMot: 'מילה קטנה לזוג הצעיר',
+      confirmerReponse: 'אשר את תשובתי',
+      envoiEnCours: 'שולח...',
+      todaRaba: 'תודה רבה!',
+      reponseEnregistree: 'תשובתך נרשמה בהצלחה. אנחנו מחכים לראות אותך.',
+      accueil: 'בית',
+      famille: 'משפחה',
+      lieu: 'מיקום',
+      rsvpNav: 'אישור הגעה',
+      // Noms des familles
+      familleGauche1: 'גב\' מרגלית סוסאן',
+      familleGauche2: 'מר שמעון אמזלג',
+      familleGauche3: 'מר וגב\' דוד אמזלג',
+      familleDroite1: 'ליליאן שמחה מועאיטי',
+      familleDroite2: 'מר נסים אביטבול',
+      familleDroite3: 'מר יוסף סלם',
+      // Prénoms mariés
+      hatan: 'ראובן',
+      kala: 'שרה'
+    },
+    fr: {
+      menu: ['Familles', 'Cérémonie', 'Lieu', 'RSVP'],
+      saveTheDate: 'Save the Date',
+      mardi10Mars2026: 'Mardi 10 Mars 2026',
+      salleOdeon: 'Salle Odeon • Hemek Hefer',
+      voirInvitation: 'Voir l\'invitation',
+      jours: 'Jours',
+      heures: 'Heures',
+      min: 'Min',
+      sec: 'Sec',
+      remercient: 'Remercient',
+      hachem: 'Hachem',
+      convier: 'd\'avoir la joie de vous convier\nau mariage de leurs enfants et petits-enfants',
+      etVousPrient: 'Et vous prient de bien vouloir assister à la Houppa',
+      quiSeraCelebree: 'qui sera célébrée le',
+      ainsiQuaLaReception: 'Ainsi qu\'à la réception qui suivra.',
+      aMaMere: 'A ma mère qui me manque…',
+      etAGrandsParents: 'et à nos grands-parents si chers à nos cœurs.',
+      jeSuisAMonBienaime: 'Je suis à mon bien-aimé, et mon bien-aimé est à moi',
+      lieuException: 'Lieu d\'Exception',
+      salleOdeonTitle: 'Salle Odeon',
+      cadreEnchanteur: 'Un cadre enchanteur pour célébrer notre union.',
+      adresse: 'Odeon Event Garden<br />HaMasik St 6, Hemek Hefer',
+      ajouterAgenda: 'Ajouter à l\'agenda',
+      yAllerWaze: 'Y aller avec Waze',
+      rsvp: 'R.S.V.P',
+      reponseSouhaitee: 'Réponse souhaitée dès réception',
+      prenom: 'Prénom',
+      nom: 'Nom',
+      adultes: 'Adultes',
+      enfants: 'Enfants',
+      confirmezPresence: 'Confirmez votre présence',
+      ouiPresent: 'Oui, je serai présent(e)',
+      nonPresent: 'Non, je ne peux pas venir',
+      jeSeraiPresentA: 'Je serai présent(e) à :',
+      jeSeraiPresentHouppa: 'Je serai présent(e) à la Houppa',
+      jeSeraiPresentSoiree: 'Je serai présent(e) à la soirée',
+      petitMot: 'Un petit mot pour les mariés',
+      confirmerReponse: 'Confirmer ma réponse',
+      envoiEnCours: 'Envoi en cours...',
+      todaRaba: 'Toda Raba !',
+      reponseEnregistree: 'Votre réponse a bien été enregistrée.\nNous avons hâte de vous retrouver.',
+      accueil: 'Accueil',
+      famille: 'Famille',
+      lieu: 'Lieu',
+      rsvpNav: 'RSVP',
+      // Noms des familles (français)
+      familleGauche1: 'Mme Margalith',
+      familleGauche2: 'Mr Simon',
+      familleGauche3: 'Mr et Mme David',
+      familleDroite1: 'Liliane Sim\'ha',
+      familleDroite2: 'Mr Nissim',
+      familleDroite3: 'Mr Joseph',
+      // Prénoms mariés (français)
+      hatan: 'Reouven',
+      kala: 'Sarah'
+    }
+  };
+
+  const t = translations[language];
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -73,20 +196,32 @@ export default function App() {
       {/* B"H Fixe */}
       <div className="fixed top-4 right-4 md:right-6 z-[60] text-[#B8860B]/40 text-xs font-serif select-none">B"H</div>
 
+      {/* Bouton de changement de langue */}
+      <button
+        onClick={() => setLanguage(language === 'he' ? 'fr' : 'he')}
+        className="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-[60] text-[#B8860B] hover:text-[#B8860B] text-sm md:text-base font-serif transition-all duration-300 uppercase tracking-[0.15em] select-none border-2 border-[#B8860B]/50 hover:border-[#B8860B] px-4 py-2.5 rounded-sm bg-white/90 backdrop-blur-md shadow-lg hover:shadow-xl hover:scale-105"
+        aria-label="Changer la langue"
+      >
+        {language === 'he' ? 'Français' : 'עברית'}
+      </button>
+
       {/* Menu Desktop */}
       <nav className={`hidden md:block fixed w-full z-50 transition-all duration-700 ${scrolled ? 'bg-white/95 backdrop-blur-md py-4 shadow-[0_10px_30px_rgba(0,0,0,0.05)] border-b border-[#B8860B]/10' : 'bg-transparent py-8'}`}>
         <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
           <div className="text-xl tracking-[0.2em] font-serif text-[#B8860B] border-y border-[#B8860B] py-1 cursor-default">R & S</div>
           <div className="flex space-x-12">
-            {['Familles', 'Cérémonie', 'Lieu', 'RSVP'].map((item) => (
+            {t.menu.map((item, index) => {
+              const hrefs = ['#familles', '#ceremonie', '#ceremonie', '#rsvp'];
+              return (
               <a
-                key={item}
-                href={`#${item.toLowerCase().replace(' ', '')}`}
+                  key={index}
+                  href={hrefs[index]}
                 className={`text-xs uppercase tracking-[0.25em] transition-colors relative group hover:text-[#B8860B] ${scrolled ? 'text-stone-700' : 'text-stone-600'}`}
               >
                 {item}
               </a>
-            ))}
+              );
+            })}
           </div>
         </div>
       </nav>
@@ -107,31 +242,31 @@ export default function App() {
           {/* Header minimaliste */}
           <div className="mb-10 lg:mb-14 relative z-10 pointer-events-none">
             <span className="text-[9px] md:text-[10px] uppercase tracking-[0.5em] text-[#8B6914] font-medium border-b border-[#8B6914]/20 pb-2">
-              Save the Date
+              {t.saveTheDate}
             </span>
           </div>
 
           {/* Noms avec calligraphie élégante */}
           <div className="flex flex-row items-center justify-center gap-[2vw] md:gap-6 mb-8 md:mb-12 relative z-10 w-full whitespace-nowrap overflow-visible">
-            <h1 className="font-wedding-script text-[12vw] md:text-[6rem] lg:text-[8rem] text-gold-foil leading-[0.85] tracking-wide">
-              Reouven
+            <h1 className={`${language === 'he' ? 'hebrew-names-calligraphy' : 'font-wedding-script'} text-[10vw] md:text-[5rem] lg:text-[7rem] text-gold-foil leading-[0.85] tracking-wide`}>
+              {language === 'he' ? t.hatan : 'Reouven'}
             </h1>
             <div className="text-[2.5vw] md:text-2xl lg:text-3xl font-wedding-script text-[#8B6914]/50 mt-1">&</div>
-            <h1 className="font-wedding-script text-[12vw] md:text-[6rem] lg:text-[8rem] text-gold-foil leading-[0.85] tracking-wide">
-              Sarah
+            <h1 className={`${language === 'he' ? 'hebrew-names-calligraphy' : 'font-wedding-script'} text-[10vw] md:text-[5rem] lg:text-[7rem] text-gold-foil leading-[0.85] tracking-wide`}>
+              {language === 'he' ? t.kala : 'Sarah'}
             </h1>
           </div>
 
           {/* Détails épurés */}
           <div className="space-y-6 relative z-10 mb-16">
             <p className="font-sans text-sm md:text-xl text-[#8B6914] tracking-[0.25em] font-medium uppercase">
-              Mardi 10 Mars 2026
+              {t.mardi10Mars2026}
             </p>
 
             <div className="flex justify-center items-center gap-4 opacity-60">
               <span className="h-px w-8 md:w-16 bg-[#8B6914]/30"></span>
               <p className="text-[8px] md:text-[9px] uppercase tracking-[0.3em] text-[#8B6914]">
-                Salle Odeon • Hemek Hefer
+                {t.salleOdeon}
               </p>
               <span className="h-px w-8 md:w-16 bg-[#8B6914]/30"></span>
             </div>
@@ -139,13 +274,13 @@ export default function App() {
 
           {/* TIMER VOGUE STYLE (Minimaliste & Fin) */}
           <div className="relative z-10 flex justify-center gap-8 md:gap-16 border-t border-[#8B6914]/10 pt-8 max-w-lg mx-auto">
-            {[{ l: 'Jours', v: timeLeft.days }, { l: 'Heures', v: timeLeft.hours }, { l: 'Min', v: timeLeft.minutes }, { l: 'Sec', v: timeLeft.seconds }].map((t, i) => (
+            {[{ l: t.jours, v: timeLeft.days }, { l: t.heures, v: timeLeft.hours }, { l: t.min, v: timeLeft.minutes }, { l: t.sec, v: timeLeft.seconds }].map((timerItem, i) => (
               <div key={i} className="text-center flex flex-col items-center">
                 <span className="font-elegant text-2xl md:text-4xl text-[#B8860B] font-light italic tabular-nums leading-none">
-                  {String(t.v).padStart(2, '0')}
+                  {String(timerItem.v).padStart(2, '0')}
                 </span>
                 <span className="text-[7px] md:text-[8px] uppercase tracking-[0.2em] text-[#8B6914]/60 mt-2 font-sans font-medium">
-                  {t.l}
+                  {timerItem.l}
                 </span>
               </div>
             ))}
@@ -169,7 +304,7 @@ export default function App() {
                 className="group px-8 md:px-12 py-3 md:py-4 border border-[#B8860B]/40 text-[#B8860B] hover:bg-[#B8860B] hover:text-white transition-all duration-500 uppercase tracking-[0.2em] text-xs md:text-sm font-medium rounded-sm relative overflow-hidden"
               >
                 <span className="relative z-10 flex items-center gap-2">
-                  Voir l'invitation
+                  {t.voirInvitation}
                   <ChevronDown size={16} className="group-hover:translate-y-1 transition-transform duration-300" />
                 </span>
                 <span className="absolute inset-0 bg-[#B8860B] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></span>
@@ -181,9 +316,9 @@ export default function App() {
 
         {/* Scroll indicator très discret */}
         {showInvitation && (
-          <div className="absolute bottom-6 md:bottom-8 text-[#B8860B]/30 animate-pulse cursor-pointer">
-            <ChevronDown size={24} strokeWidth={0.5} />
-          </div>
+        <div className="absolute bottom-6 md:bottom-8 text-[#B8860B]/30 animate-pulse cursor-pointer">
+          <ChevronDown size={24} strokeWidth={0.5} />
+        </div>
         )}
       </section>
 
@@ -227,52 +362,109 @@ export default function App() {
 
           <div className="grid grid-cols-2 gap-1 md:gap-16 mb-6 md:mb-10 items-start opacity-100 card-text-animate-delay-1">
             <div className="space-y-1 text-center font-elegant text-stone-700 leading-relaxed text-[13px] md:text-lg">
-              <p>Mme Margalith <span className="text-gold-foil font-semibold opacity-90">SOUSSAN</span></p>
-              <p>Mr Simon <span className="text-gold-foil font-semibold opacity-90">AMZALLAG</span></p>
-              <p>Mr et Mme David <span className="text-gold-foil font-semibold opacity-90">AMZALLAG</span></p>
+              <p dir={language === 'he' ? 'rtl' : 'ltr'}>
+                {language === 'he' ? (
+                  <>גב' מרגלית <span className="text-gold-foil font-semibold opacity-90">סוסאן</span></>
+                ) : (
+                  <>{t.familleGauche1} <span className="text-gold-foil font-semibold opacity-90">SOUSSAN</span></>
+                )}
+              </p>
+              <p dir={language === 'he' ? 'rtl' : 'ltr'}>
+                {language === 'he' ? (
+                  <>מר שמעון <span className="text-gold-foil font-semibold opacity-90">אמזלג</span></>
+                ) : (
+                  <>{t.familleGauche2} <span className="text-gold-foil font-semibold opacity-90">AMZALLAG</span></>
+                )}
+              </p>
+              <p dir={language === 'he' ? 'rtl' : 'ltr'}>
+                {language === 'he' ? (
+                  <>מר וגב' דוד <span className="text-gold-foil font-semibold opacity-90">אמזלג</span></>
+                ) : (
+                  <>{t.familleGauche3} <span className="text-gold-foil font-semibold opacity-90">AMZALLAG</span></>
+                )}
+              </p>
             </div>
             <div className="space-y-1 text-center font-elegant text-stone-700 leading-relaxed text-[13px] md:text-lg">
-              <p>Liliane Sim'ha <span className="text-gold-foil font-semibold opacity-90">MOATIE</span></p>
-              <p>Mr Nissim <span className="text-gold-foil font-semibold opacity-90">ABITBOL</span></p>
-              <p>Mr Joseph <span className="text-gold-foil font-semibold opacity-90">SELLAM</span></p>
+              <p dir={language === 'he' ? 'rtl' : 'ltr'}>
+                {language === 'he' ? (
+                  <>ליליאן שמחה <span className="text-gold-foil font-semibold opacity-90">מועאיטי</span></>
+                ) : (
+                  <>{t.familleDroite1} <span className="text-gold-foil font-semibold opacity-90">MOATIE</span></>
+                )}
+              </p>
+              <p dir={language === 'he' ? 'rtl' : 'ltr'}>
+                {language === 'he' ? (
+                  <>מר נסים <span className="text-gold-foil font-semibold opacity-90">אביטבול</span></>
+                ) : (
+                  <>{t.familleDroite2} <span className="text-gold-foil font-semibold opacity-90">ABITBOL</span></>
+                )}
+              </p>
+              <p dir={language === 'he' ? 'rtl' : 'ltr'}>
+                {language === 'he' ? (
+                  <>מר יוסף <span className="text-gold-foil font-semibold opacity-90">סלם</span></>
+                ) : (
+                  <>{t.familleDroite3} <span className="text-gold-foil font-semibold opacity-90">SELLAM</span></>
+                )}
+              </p>
             </div>
           </div>
 
           <div className="max-w-6xl mx-auto space-y-4 md:space-y-8 px-2 md:px-4">
             <p className="font-serif text-lg md:text-3xl text-stone-600 italic font-light leading-relaxed card-text-animate-delay-2">
-              Remercient <span className="text-[#D4AF37] font-semibold not-italic text-xl md:text-3xl align-middle">Hachem</span> d'avoir la joie de vous convier<br />au mariage de leurs enfants et petits-enfants
+              {language === 'he' ? (
+                <>
+                  {t.remercient} <span className={`text-[#D4AF37] font-semibold not-italic text-xl md:text-3xl ${language === 'he' ? 'hebrew-hachem' : ''}`}>{t.hachem}</span> {t.convier}
+                </>
+              ) : (
+                <>
+                  {t.remercient} <span className={`text-[#D4AF37] font-semibold not-italic text-xl md:text-3xl align-middle ${language === 'he' ? 'hebrew-hachem' : ''}`}>{t.hachem}</span> {t.convier.split('\n').map((line, i, arr) => (
+                    <React.Fragment key={i}>
+                      {line}
+                      {i < arr.length - 1 && <br />}
+                    </React.Fragment>
+                  ))}
+                </>
+              )}
             </p>
 
             {/* Prénoms en Calligraphie Élégante */}
             <div className="py-2 md:py-6 relative card-text-animate-delay-3">
-              <h2 className="font-wedding-script text-7xl md:text-9xl leading-none mt-2 md:mt-4 text-[#B8860B] tracking-wide">
-                Reouven <span className="text-5xl md:text-7xl align-middle opacity-70 text-[#a89078]">&</span> Sarah
+              <h2 className={`${language === 'he' ? 'hebrew-names-calligraphy' : 'font-wedding-script'} text-7xl md:text-9xl leading-none mt-2 md:mt-4 text-[#B8860B] tracking-wide`}>
+                {t.hatan} <span className="text-5xl md:text-7xl align-middle opacity-70 text-[#a89078]">&</span> {t.kala}
               </h2>
             </div>
 
             <p className="font-serif text-lg md:text-3xl text-stone-600 italic font-light card-text-animate-delay-4">
-              Et vous prient de bien vouloir assister à la Houppa<br />qui sera célébrée le
+              {t.etVousPrient}<br />{t.quiSeraCelebree}
             </p>
 
             {/* Date/Heure - Condensé */}
             <div className="py-2 md:py-4 mt-0 space-y-3 card-text-animate-delay-5">
               <div className="flex flex-col md:flex-row items-center justify-center gap-3 md:gap-6">
                 <p className="font-serif text-lg md:text-2xl text-[#B8860B] font-semibold tracking-wide">
-                  Mardi <span className="text-2xl md:text-3xl">10</span> Mars 2026
+                  {language === 'he' ? (
+                    <>
+                      יום שלישי <span className="text-2xl md:text-3xl">10</span> מרץ 2026
+                    </>
+                  ) : (
+                    <>
+                      Mardi <span className="text-2xl md:text-3xl">10</span> Mars 2026
+                    </>
+                  )}
                 </p>
                 <span className="text-stone-500 font-sans text-sm md:text-base">21 Adar 5786</span>
               </div>
               <p className="font-serif text-lg md:text-2xl text-[#B8860B] font-semibold tracking-wide">
-                19H30 précises
+                {language === 'he' ? '19:30 בדיוק' : '19H30 précises'}
               </p>
               <p className="font-serif text-lg md:text-3xl text-stone-600 italic font-light leading-relaxed mt-2">
-                Ainsi qu'à la réception qui suivra.
+                {t.ainsiQuaLaReception}
               </p>
             </div>
 
             <div className="mt-4 md:mt-8 opacity-80 card-text-animate-delay-6">
-              <p className="font-serif italic text-base md:text-xl text-stone-600">A ma mère qui me manque…</p>
-              <p className="font-serif italic text-base md:text-xl text-stone-600 mt-0">et à nos grands-parents si chers à nos cœurs.</p>
+              <p className="font-serif italic text-base md:text-xl text-stone-600">{t.aMaMere}</p>
+              <p className="font-serif italic text-base md:text-xl text-stone-600 mt-0">{t.etAGrandsParents}</p>
             </div>
           </div>
         </div>
@@ -288,20 +480,24 @@ export default function App() {
         <div className="max-w-4xl mx-auto relative z-10 w-full">
           <Star className="w-4 h-4 text-[#B8860B] mx-auto mb-8 animate-pulse opacity-60" />
           <h2 className="font-elegant text-5xl md:text-7xl leading-tight text-[#B8860B] mb-4 opacity-90">אֲנִי לְדוֹדִי וְדוֹדִי לִי</h2>
-          <p className="text-stone-500 font-light tracking-[0.25em] uppercase text-[10px] mb-10">Je suis à mon bien-aimé, et mon bien-aimé est à moi</p>
+          <p className="text-stone-500 font-light tracking-[0.25em] uppercase text-[10px] mb-10">{t.jeSuisAMonBienaime}</p>
 
           {/* Infos Salle Odeon */}
           <div className="space-y-6 bg-white/70 backdrop-blur-sm rounded-sm p-8 md:p-12 shadow-lg border border-[#B8860B]/10">
             <h3 className="text-[#B8860B] uppercase tracking-[0.25em] text-[10px] flex items-center justify-center gap-2 font-medium mb-4">
-              <MapPin size={16} /> Lieu d'Exception
+              <MapPin size={16} /> {t.lieuException}
             </h3>
-            <h2 className="text-4xl md:text-5xl font-elegant text-stone-800 mb-4">Salle Odeon</h2>
+            <h2 className="text-4xl md:text-5xl font-elegant text-stone-800 mb-4">{t.salleOdeonTitle}</h2>
             <p className="text-stone-600 font-light leading-relaxed text-base md:text-lg mb-4">
-              Un cadre enchanteur pour célébrer notre union.
+              {t.cadreEnchanteur}
             </p>
             <p className="text-stone-500 italic text-sm md:text-base">
-              Odeon Event Garden<br />
-              HaMasik St 6, Hemek Hefer
+              {t.adresse.split('\n').map((line, i, arr) => (
+                <React.Fragment key={i}>
+                  {line}
+                  {i < arr.length - 1 && <br />}
+                </React.Fragment>
+              ))}
             </p>
             <div className="mt-8 pt-6 border-t border-[#B8860B]/20 flex flex-col sm:flex-row gap-4 justify-center items-center">
               <a 
@@ -311,7 +507,7 @@ export default function App() {
                 className="inline-flex items-center justify-center gap-3 px-8 py-4 border border-[#B8860B]/40 text-[#B8860B] hover:bg-[#B8860B]/5 transition-all rounded-sm group"
               >
                 <CalendarPlus size={18} className="group-hover:scale-110 transition-transform" />
-                <span className="uppercase tracking-[0.15em] text-[10px] font-medium">Ajouter à l'agenda</span>
+                <span className="uppercase tracking-[0.15em] text-[10px] font-medium">{t.ajouterAgenda}</span>
               </a>
               <a 
                 href={wazeLink} 
@@ -320,7 +516,7 @@ export default function App() {
                 className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-[#B8860B] text-white hover:bg-[#9A7009] transition-all shadow-xl shadow-[#B8860B]/20 rounded-sm group"
               >
                 <Navigation size={18} className="group-hover:scale-110 transition-transform" />
-                <span className="uppercase tracking-[0.15em] text-[10px] font-medium">Y aller avec Waze</span>
+                <span className="uppercase tracking-[0.15em] text-[10px] font-medium">{t.yAllerWaze}</span>
               </a>
             </div>
           </div>
@@ -332,10 +528,10 @@ export default function App() {
       <section id="rsvp" className="py-20 md:py-32 px-4 relative">
         <div className="max-w-2xl mx-auto relative z-10 p-8 md:p-16" style={{ backgroundColor: '#FAF8F3' }}>
           <div className="text-center mb-12">
-            <h2 className="font-elegant text-4xl md:text-5xl text-[#8B7355] mb-3 font-light">R.S.V.P</h2>
+            <h2 className="font-elegant text-4xl md:text-5xl text-[#8B7355] mb-3 font-light">{t.rsvp}</h2>
             <div className="flex items-center justify-center gap-3 mt-5">
               <span className="h-px w-12 bg-[#8B7355]/40"></span>
-              <p className="text-[#8B7355] text-[10px] uppercase tracking-[0.3em] font-medium">Réponse souhaitée dès réception</p>
+              <p className="text-[#8B7355] text-[10px] uppercase tracking-[0.3em] font-medium">{t.reponseSouhaitee}</p>
               <span className="h-px w-12 bg-[#8B7355]/40"></span>
             </div>
           </div>
@@ -386,7 +582,7 @@ export default function App() {
               {/* Nom et Prénom */}
               <div className="grid grid-cols-2 gap-8">
                 <div className="space-y-2">
-                  <label className="text-[9px] uppercase tracking-[0.3em] text-[#8B7355] font-light">Prénom</label>
+                  <label className="text-[9px] uppercase tracking-[0.3em] text-[#8B7355] font-light">{t.prenom}</label>
                   <div className="relative">
                     <input 
                       type="text" 
@@ -399,7 +595,7 @@ export default function App() {
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <label className="text-[9px] uppercase tracking-[0.3em] text-[#8B7355] font-light">Nom</label>
+                  <label className="text-[9px] uppercase tracking-[0.3em] text-[#8B7355] font-light">{t.nom}</label>
                   <div className="relative">
                     <input 
                       type="text" 
@@ -416,7 +612,7 @@ export default function App() {
               {/* Nombre d'invités */}
               <div className="grid grid-cols-2 gap-8">
                 <div className="space-y-2">
-                  <label className="text-[9px] uppercase tracking-[0.3em] text-[#8B7355] font-light">Adultes</label>
+                  <label className="text-[9px] uppercase tracking-[0.3em] text-[#8B7355] font-light">{t.adultes}</label>
                   <select 
                     value={rsvpData.adultes}
                     onChange={(e) => setRsvpData({...rsvpData, adultes: e.target.value})}
@@ -432,7 +628,7 @@ export default function App() {
                   </select>
                 </div>
                 <div className="space-y-2">
-                  <label className="text-[9px] uppercase tracking-[0.3em] text-[#8B7355] font-light">Enfants</label>
+                  <label className="text-[9px] uppercase tracking-[0.3em] text-[#8B7355] font-light">{t.enfants}</label>
                   <select 
                     value={rsvpData.enfants}
                     onChange={(e) => setRsvpData({...rsvpData, enfants: e.target.value})}
@@ -457,7 +653,7 @@ export default function App() {
 
               {/* Présence */}
               <div className="space-y-4 pt-2">
-                <label className="block text-[#8B7355] text-[9px] uppercase tracking-[0.3em] font-light mb-6">Confirmez votre présence</label>
+                <label className="block text-[#8B7355] text-[9px] uppercase tracking-[0.3em] font-light mb-6">{t.confirmezPresence}</label>
                 <div className="flex gap-8 justify-center">
                   <label className="flex items-center gap-3 cursor-pointer group">
                     <input 
@@ -476,7 +672,7 @@ export default function App() {
                         )}
                       </div>
                       <span className={`text-base font-elegant transition-colors ${rsvpData.presence === 'oui' ? 'text-[#5A4A3A]' : 'text-[#8B7355]/50'}`}>
-                        Oui, je serai présent(e)
+                        {t.ouiPresent}
                       </span>
                     </div>
                   </label>
@@ -498,7 +694,7 @@ export default function App() {
                         )}
                       </div>
                       <span className={`text-base font-elegant transition-colors ${rsvpData.presence === 'non' ? 'text-[#5A4A3A]' : 'text-[#8B7355]/50'}`}>
-                        Non, je ne peux pas venir
+                        {t.nonPresent}
                       </span>
                     </div>
                   </label>
@@ -508,7 +704,7 @@ export default function App() {
               {/* Options Houppa & Soirée (seulement si présent) */}
               {rsvpData.presence === 'oui' && (
                 <div className="space-y-4 pt-4 border-t border-[#8B7355]/30">
-                  <label className="block text-[#8B7355] text-[9px] uppercase tracking-[0.3em] font-light mb-5">Je serai présent(e) à :</label>
+                  <label className="block text-[#8B7355] text-[9px] uppercase tracking-[0.3em] font-light mb-5">{t.jeSeraiPresentA}</label>
                   <div className="space-y-4 pl-2">
                     <label className="flex items-center gap-3 cursor-pointer group">
                       <input 
@@ -523,7 +719,7 @@ export default function App() {
                         )}
                       </div>
                       <span className={`text-base font-elegant transition-colors ${rsvpData.houppa ? 'text-[#5A4A3A]' : 'text-[#8B7355]/50'}`}>
-                        Je serai présent(e) à la Houppa
+                        {t.jeSeraiPresentHouppa}
                       </span>
                     </label>
                     <label className="flex items-center gap-3 cursor-pointer group">
@@ -539,7 +735,7 @@ export default function App() {
                         )}
                       </div>
                       <span className={`text-base font-elegant transition-colors ${rsvpData.soiree ? 'text-[#5A4A3A]' : 'text-[#8B7355]/50'}`}>
-                        Je serai présent(e) à la soirée
+                        {t.jeSeraiPresentSoiree}
                       </span>
                     </label>
                   </div>
@@ -549,7 +745,7 @@ export default function App() {
               {/* Message (obligatoire si présent) */}
               <div className="space-y-2 pt-4 border-t border-[#8B7355]/30">
                 <label className="text-[#8B7355] text-[9px] uppercase tracking-[0.3em] font-light">
-                  Un petit mot pour les mariés {rsvpData.presence === 'oui' ? '*' : ''}
+                  {t.petitMot} {rsvpData.presence === 'oui' ? '*' : ''}
                 </label>
                 <textarea 
                   value={guestMessage}
@@ -567,8 +763,8 @@ export default function App() {
                   disabled={isSubmitting || (rsvpData.presence === 'oui' && !rsvpData.houppa && !rsvpData.soiree)}
                   className="px-10 py-3 border-2 border-[#8B7355]/70 text-[#8B7355] uppercase tracking-[0.25em] text-[10px] font-medium transition-all duration-300 hover:border-[#8B7355] hover:text-[#5A4A3A] hover:bg-[#8B7355]/5 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:border-[#8B7355]/70 disabled:hover:text-[#8B7355] disabled:hover:bg-transparent"
                 >
-                  {isSubmitting ? 'Envoi en cours...' : 'Confirmer ma réponse'}
-                </button>
+                  {isSubmitting ? t.envoiEnCours : t.confirmerReponse}
+              </button>
               </div>
             </form>
           ) : (
@@ -578,8 +774,15 @@ export default function App() {
                 <Wine className="text-[#8B7355]/50 w-6 h-6" />
                 <span className="h-px w-12 bg-[#8B7355]/20"></span>
               </div>
-              <span className="font-names text-4xl md:text-5xl text-[#8B7355] block mb-6 font-light">Toda Raba !</span>
-              <p className="text-[#5A4A3A] font-elegant text-base leading-relaxed">Votre réponse a bien été enregistrée.<br />Nous avons hâte de vous retrouver.</p>
+              <span className="font-names text-4xl md:text-5xl text-[#8B7355] block mb-6 font-light">{t.todaRaba}</span>
+              <p className="text-[#5A4A3A] font-elegant text-base leading-relaxed">
+                {t.reponseEnregistree.split('\n').map((line, i, arr) => (
+                  <React.Fragment key={i}>
+                    {line}
+                    {i < arr.length - 1 && <br />}
+                  </React.Fragment>
+                ))}
+              </p>
             </div>
           )}
         </div>
@@ -587,35 +790,33 @@ export default function App() {
 
       {/* FOOTER */}
       < footer className="bg-white/80 backdrop-blur-md py-12 md:py-20 text-center border-t border-[#B8860B]/10" >
-        <p className="font-names text-3xl md:text-4xl mb-6 tracking-wide text-[#B8860B]">Reouven & Sarah</p>
-        <p className="text-[10px] uppercase tracking-[0.3em] text-stone-400">10 . 03 . 2026 </p>
-        <br></br>
-         <p className="text-[10px] uppercase tracking-[0.3em] text-stone-400"> Réaliser par Hillel Amzallag</p>
-        <br></br>
-           <p className="text-[10px] uppercase tracking-[0.3em] text-stone-400">+972-53-256-9935 </p>
+        <p className={`${language === 'he' ? 'hebrew-names-calligraphy' : 'font-names'} text-3xl md:text-4xl mb-6 tracking-wide text-[#B8860B]`}>
+          {language === 'he' ? `${t.hatan} & ${t.kala}` : 'Reouven & Sarah'}
+        </p>
+        <p className="text-[10px] uppercase tracking-[0.3em] text-stone-400">10 . 03 . 2026</p>
       </footer >
 
       {/* BARRE NAVIGATION MOBILE (Type App) */}
       < div className="md:hidden fixed bottom-0 left-0 w-full bg-white/95 backdrop-blur-md border-t border-[#B8860B]/10 flex justify-around items-center py-3 z-50 pb-safe shadow-[0_-5px_20px_rgba(0,0,0,0.05)]" >
         <a href="#home" className="flex flex-col items-center gap-1 text-[#B8860B]">
           <Home size={18} strokeWidth={1.5} />
-          <span className="text-[8px] uppercase tracking-widest font-medium">Accueil</span>
+          <span className="text-[8px] uppercase tracking-widest font-medium">{t.accueil}</span>
         </a>
         <a href="#familles" className="flex flex-col items-center gap-1 text-stone-400 hover:text-[#B8860B] transition-colors">
           <Users size={18} strokeWidth={1.5} />
-          <span className="text-[8px] uppercase tracking-widest font-medium">Famille</span>
+          <span className="text-[8px] uppercase tracking-widest font-medium">{t.famille}</span>
         </a>
         <a href="#ceremonie" className="flex flex-col items-center gap-1 text-stone-400 hover:text-[#B8860B] transition-colors">
           <MapPin size={18} strokeWidth={1.5} />
-          <span className="text-[8px] uppercase tracking-widest font-medium">Lieu</span>
+          <span className="text-[8px] uppercase tracking-widest font-medium">{t.lieu}</span>
         </a>
         <a href="#rsvp" className="flex flex-col items-center gap-1 text-stone-400 hover:text-[#B8860B] transition-colors">
           <Send size={18} strokeWidth={1.5} />
-          <span className="text-[8px] uppercase tracking-widest font-medium">RSVP</span>
+          <span className="text-[8px] uppercase tracking-widest font-medium">{t.rsvpNav}</span>
         </a>
       </div >
 
-        </div>
+            </div>
       )}
 
 

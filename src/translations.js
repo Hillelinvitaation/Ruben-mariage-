@@ -26,15 +26,15 @@ export const translations = {
         },
 
         // Date and location
-        date: "יום שלישי 10 במרץ 2026",
+        date: "יום שלישי 14 באפריל 2026",
         venue: "אולם אודאון • עמק חפר",
 
         // Familles section
         hebrewVerse: "קול ששון וקול שמחה קול חתן וקול כלה",
         thankHashem: "מודים להשם על השמחה להזמינכם לחתונת ילדיהם ונכדיהם",
         houppaInvite: "ומזמינים אתכם לחופה שתיערך ביום",
-        dateHebrew: "יום שלישי כ״א אדר תשפ״ו",
-        dateGregorian: "10 במרץ 2026",
+        dateHebrew: "יום שלישי כ״ז ניסן תשפ״ו",
+        dateGregorian: "14 באפריל 2026",
         time: "בשעה 19:30",
         receptionFollow: "ולשמחה שתתקיים לאחר מכן",
         inMemory: "לזכר אמי שחסרה לי...",
@@ -70,7 +70,7 @@ export const translations = {
         validationError: "אנא בחרו לפחות חופה או מסיבה אם אתם מגיעים.",
 
         // Footer
-        footerDate: "10 . 03 . 2026",
+        footerDate: "14 . 04 . 2026",
 
         // Language toggle
         langSwitch: "עב"
@@ -102,15 +102,15 @@ export const translations = {
         },
 
         // Date and location
-        date: "Mardi 10 Mars 2026",
+        date: "Mardi 14 Avril 2026",
         venue: "Salle Odeon • Hemek Hefer",
 
         // Familles section
         hebrewVerse: "קול ששון וקול שמחה קול חתן וקול כלה",
         thankHashem: "Remercient Hachem d'avoir la joie de vous convier au mariage de leurs enfants et petits-enfants",
         houppaInvite: "Et vous prient de bien vouloir assister à la Houppa qui sera célébrée le",
-        dateHebrew: "21 Adar 5786",
-        dateGregorian: "Mardi 10 Mars 2026",
+        dateHebrew: "27 Nissan 5786",
+        dateGregorian: "Mardi 14 Avril 2026",
         time: "19H30 précises",
         receptionFollow: "Ainsi qu'à la réception qui suivra.",
         inMemory: "A ma mère qui me manque…",
@@ -146,7 +146,7 @@ export const translations = {
         validationError: "Veuillez sélectionner au moins la Houppa ou la Soirée si vous êtes présent(e).",
 
         // Footer
-        footerDate: "10 . 03 . 2026",
+        footerDate: "14 . 04 . 2026",
 
         // Language toggle
         langSwitch: "FR"

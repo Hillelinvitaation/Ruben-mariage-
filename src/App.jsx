@@ -41,7 +41,7 @@ export default function App() {
     he: {
       menu: ['משפחות', 'טקס', 'מיקום', 'אישור הגעה'],
       saveTheDate: 'שמור את התאריך',
-      mardi10Mars2026: 'יום שלישי 10 מרץ 2026',
+      mardi14Avril2026: 'יום שלישי 14 אפריל 2026',
       salleOdeon: 'אולם אודאון • עמק חפר',
       voirInvitation: 'צפה בהזמנה',
       jours: 'ימים',
@@ -98,7 +98,7 @@ export default function App() {
     fr: {
       menu: ['Familles', 'Cérémonie', 'Lieu', 'RSVP'],
       saveTheDate: 'Save the Date',
-      mardi10Mars2026: 'Mardi 10 Mars 2026',
+      mardi14Avril2026: 'Mardi 14 Avril 2026',
       salleOdeon: 'Salle Odeon • Hemek Hefer',
       voirInvitation: 'Voir l\'invitation',
       jours: 'Jours',
@@ -160,8 +160,8 @@ export default function App() {
     const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener('scroll', handleScroll);
 
-    // Date du mariage : 10 Mars 2026
-    const weddingDate = new Date('2026-03-10T19:30:00');
+    // Date du mariage : 14 Avril 2026
+    const weddingDate = new Date('2026-04-14T19:30:00');
 
     const timer = setInterval(() => {
       const now = new Date();
@@ -183,7 +183,7 @@ export default function App() {
   }, []);
 
 
-  const googleCalendarLink = "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Mariage+Reouven+%26+Sarah&dates=20260310T153000Z/20260310T223000Z&details=Mariage+de+Reouven+et+Sarah%0ASalle+Odeon%2C+Odeon+Event+Garden%2C+HaMasik+St+6%2C+Hemek+Hefer&location=Odeon+Event+Garden%2C+HaMasik+St+6%2C+Hemek+Hefer&reminder=1440&reminder=510&reminder=60";
+  const googleCalendarLink = "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Mariage+Reouven+%26+Sarah&dates=20260414T153000Z/20260414T223000Z&details=Mariage+de+Reouven+et+Sarah%0ASalle+Odeon%2C+Odeon+Event+Garden%2C+HaMasik+St+6%2C+Hemek+Hefer&location=Odeon+Event+Garden%2C+HaMasik+St+6%2C+Hemek+Hefer&reminder=1440&reminder=510&reminder=60";
   const wazeLink = "https://waze.com/ul/hsvbb643rn";
 
   return (
@@ -213,13 +213,13 @@ export default function App() {
             {t.menu.map((item, index) => {
               const hrefs = ['#familles', '#ceremonie', '#ceremonie', '#rsvp'];
               return (
-              <a
+                <a
                   key={index}
                   href={hrefs[index]}
-                className={`text-xs uppercase tracking-[0.25em] transition-colors relative group hover:text-[#B8860B] ${scrolled ? 'text-stone-700' : 'text-stone-600'}`}
-              >
-                {item}
-              </a>
+                  className={`text-xs uppercase tracking-[0.25em] transition-colors relative group hover:text-[#B8860B] ${scrolled ? 'text-stone-700' : 'text-stone-600'}`}
+                >
+                  {item}
+                </a>
               );
             })}
           </div>
@@ -260,7 +260,7 @@ export default function App() {
           {/* Détails épurés */}
           <div className="space-y-6 relative z-10 mb-16">
             <p className="font-sans text-sm md:text-xl text-[#8B6914] tracking-[0.25em] font-medium uppercase">
-              {t.mardi10Mars2026}
+              {t.mardi14Avril2026}
             </p>
 
             <div className="flex justify-center items-center gap-4 opacity-60">
@@ -316,507 +316,507 @@ export default function App() {
 
         {/* Scroll indicator très discret */}
         {showInvitation && (
-        <div className="absolute bottom-6 md:bottom-8 text-[#B8860B]/30 animate-pulse cursor-pointer">
-          <ChevronDown size={24} strokeWidth={0.5} />
-        </div>
+          <div className="absolute bottom-6 md:bottom-8 text-[#B8860B]/30 animate-pulse cursor-pointer">
+            <ChevronDown size={24} strokeWidth={0.5} />
+          </div>
         )}
       </section>
 
       {/* Contenu masqué jusqu'au clic */}
       {showInvitation && (
         <div className="animate-fadeIn">
-      {/* FAMILLES */}
-      {/* FAMILLES - Fond Floral Aquarelle */}
-      <section id="familles" className="py-10 md:py-20 px-4 text-center border-b border-[#B8860B]/10 relative overflow-hidden">
-        {/* Fond en arrière-plan avec z-index bas */}
-        <div className="absolute inset-0 z-0" style={{ 
-          backgroundImage: 'url("/images/Gemini_Generated_Image_j0se47j0se47j0se-f83a232d-2000-46c4-8c2b-4322d09c757e.png")',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-          backgroundAttachment: 'scroll'
-        }}></div>
-        <div className="max-w-5xl mx-auto relative z-10">
+          {/* FAMILLES */}
+          {/* FAMILLES - Fond Floral Aquarelle */}
+          <section id="familles" className="py-10 md:py-20 px-4 text-center border-b border-[#B8860B]/10 relative overflow-hidden">
+            {/* Fond en arrière-plan avec z-index bas */}
+            <div className="absolute inset-0 z-0" style={{
+              backgroundImage: 'url("/images/Gemini_Generated_Image_j0se47j0se47j0se-f83a232d-2000-46c4-8c2b-4322d09c757e.png")',
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              backgroundRepeat: 'no-repeat',
+              backgroundAttachment: 'scroll'
+            }}></div>
+            <div className="max-w-5xl mx-auto relative z-10">
 
-          {/* Arc Hébreu - Correction pour Chrome : inverser l'ordre des mots avec chemin normal */}
-          <div className="w-full flex justify-center mb-4 md:mb-6 card-text-animate">
-            <svg viewBox="0 0 500 120" className="w-full max-w-lg md:max-w-2xl opacity-60">
-              <path 
-                id="curve-hebrew-top" 
-                d="M 50,120 Q 250,20 450,120" 
-                fill="transparent" 
-              />
-              <text width="500" {...(isChrome ? {} : { direction: "rtl", style: { direction: 'rtl' } })}>
-                <textPath 
-                  xlinkHref="#curve-hebrew-top"
-                  startOffset="50%" 
-                  textAnchor="middle" 
-                  className="text-lg md:text-2xl fill-[#8B7355]" 
-                  style={{ fontFamily: 'serif', ...(isChrome ? {} : { direction: 'rtl' }) }}
-                >
-                  {isChrome ? hebrewForChrome : hebrewText}
-                </textPath>
-              </text>
-            </svg>
-          </div>
+              {/* Arc Hébreu - Correction pour Chrome : inverser l'ordre des mots avec chemin normal */}
+              <div className="w-full flex justify-center mb-4 md:mb-6 card-text-animate">
+                <svg viewBox="0 0 500 120" className="w-full max-w-lg md:max-w-2xl opacity-60">
+                  <path
+                    id="curve-hebrew-top"
+                    d="M 50,120 Q 250,20 450,120"
+                    fill="transparent"
+                  />
+                  <text width="500" {...(isChrome ? {} : { direction: "rtl", style: { direction: 'rtl' } })}>
+                    <textPath
+                      xlinkHref="#curve-hebrew-top"
+                      startOffset="50%"
+                      textAnchor="middle"
+                      className="text-lg md:text-2xl fill-[#8B7355]"
+                      style={{ fontFamily: 'serif', ...(isChrome ? {} : { direction: 'rtl' }) }}
+                    >
+                      {isChrome ? hebrewForChrome : hebrewText}
+                    </textPath>
+                  </text>
+                </svg>
+              </div>
 
-          <div className="grid grid-cols-2 gap-1 md:gap-16 mb-6 md:mb-10 items-start opacity-100 card-text-animate-delay-1">
-            <div className="space-y-1 text-center font-elegant text-stone-700 leading-relaxed text-[13px] md:text-lg">
-              <p dir={language === 'he' ? 'rtl' : 'ltr'}>
-                {language === 'he' ? (
-                  <>גב' מרגלית <span className="text-gold-foil font-semibold opacity-90">סוסאן</span></>
-                ) : (
-                  <>{t.familleGauche1} <span className="text-gold-foil font-semibold opacity-90">SOUSSAN</span></>
-                )}
-              </p>
-              <p dir={language === 'he' ? 'rtl' : 'ltr'}>
-                {language === 'he' ? (
-                  <>מר שמעון <span className="text-gold-foil font-semibold opacity-90">אמזלג</span></>
-                ) : (
-                  <>{t.familleGauche2} <span className="text-gold-foil font-semibold opacity-90">AMZALLAG</span></>
-                )}
-              </p>
-              <p dir={language === 'he' ? 'rtl' : 'ltr'}>
-                {language === 'he' ? (
-                  <>מר וגב' דוד <span className="text-gold-foil font-semibold opacity-90">אמזלג</span></>
-                ) : (
-                  <>{t.familleGauche3} <span className="text-gold-foil font-semibold opacity-90">AMZALLAG</span></>
-                )}
-              </p>
+              <div className="grid grid-cols-2 gap-1 md:gap-16 mb-6 md:mb-10 items-start opacity-100 card-text-animate-delay-1">
+                <div className="space-y-1 text-center font-elegant text-stone-700 leading-relaxed text-[13px] md:text-lg">
+                  <p dir={language === 'he' ? 'rtl' : 'ltr'}>
+                    {language === 'he' ? (
+                      <>גב' מרגלית <span className="text-gold-foil font-semibold opacity-90">סוסאן</span></>
+                    ) : (
+                      <>{t.familleGauche1} <span className="text-gold-foil font-semibold opacity-90">SOUSSAN</span></>
+                    )}
+                  </p>
+                  <p dir={language === 'he' ? 'rtl' : 'ltr'}>
+                    {language === 'he' ? (
+                      <>מר שמעון <span className="text-gold-foil font-semibold opacity-90">אמזלג</span></>
+                    ) : (
+                      <>{t.familleGauche2} <span className="text-gold-foil font-semibold opacity-90">AMZALLAG</span></>
+                    )}
+                  </p>
+                  <p dir={language === 'he' ? 'rtl' : 'ltr'}>
+                    {language === 'he' ? (
+                      <>מר וגב' דוד <span className="text-gold-foil font-semibold opacity-90">אמזלג</span></>
+                    ) : (
+                      <>{t.familleGauche3} <span className="text-gold-foil font-semibold opacity-90">AMZALLAG</span></>
+                    )}
+                  </p>
+                </div>
+                <div className="space-y-1 text-center font-elegant text-stone-700 leading-relaxed text-[13px] md:text-lg">
+                  <p dir={language === 'he' ? 'rtl' : 'ltr'}>
+                    {language === 'he' ? (
+                      <>ליליאן שמחה <span className="text-gold-foil font-semibold opacity-90">מועאיטי</span></>
+                    ) : (
+                      <>{t.familleDroite1} <span className="text-gold-foil font-semibold opacity-90">MOATIE</span></>
+                    )}
+                  </p>
+                  <p dir={language === 'he' ? 'rtl' : 'ltr'}>
+                    {language === 'he' ? (
+                      <>מר נסים <span className="text-gold-foil font-semibold opacity-90">אביטבול</span></>
+                    ) : (
+                      <>{t.familleDroite2} <span className="text-gold-foil font-semibold opacity-90">ABITBOL</span></>
+                    )}
+                  </p>
+                  <p dir={language === 'he' ? 'rtl' : 'ltr'}>
+                    {language === 'he' ? (
+                      <>מר יוסף <span className="text-gold-foil font-semibold opacity-90">סלם</span></>
+                    ) : (
+                      <>{t.familleDroite3} <span className="text-gold-foil font-semibold opacity-90">SELLAM</span></>
+                    )}
+                  </p>
+                </div>
+              </div>
+
+              <div className="max-w-6xl mx-auto space-y-4 md:space-y-8 px-2 md:px-4">
+                <p className="font-serif text-lg md:text-3xl text-stone-600 italic font-light leading-relaxed card-text-animate-delay-2">
+                  {language === 'he' ? (
+                    <>
+                      {t.remercient} <span className={`text-[#D4AF37] font-semibold not-italic text-xl md:text-3xl ${language === 'he' ? 'hebrew-hachem' : ''}`}>{t.hachem}</span> {t.convier}
+                    </>
+                  ) : (
+                    <>
+                      {t.remercient} <span className={`text-[#D4AF37] font-semibold not-italic text-xl md:text-3xl align-middle ${language === 'he' ? 'hebrew-hachem' : ''}`}>{t.hachem}</span> {t.convier.split('\n').map((line, i, arr) => (
+                        <React.Fragment key={i}>
+                          {line}
+                          {i < arr.length - 1 && <br />}
+                        </React.Fragment>
+                      ))}
+                    </>
+                  )}
+                </p>
+
+                {/* Prénoms en Calligraphie Élégante */}
+                <div className="py-2 md:py-6 relative card-text-animate-delay-3">
+                  <h2 className={`${language === 'he' ? 'hebrew-names-calligraphy' : 'font-wedding-script'} text-7xl md:text-9xl leading-none mt-2 md:mt-4 text-[#B8860B] tracking-wide`}>
+                    {t.hatan} <span className="text-5xl md:text-7xl align-middle opacity-70 text-[#a89078]">&</span> {t.kala}
+                  </h2>
+                </div>
+
+                <p className="font-serif text-lg md:text-3xl text-stone-600 italic font-light card-text-animate-delay-4">
+                  {t.etVousPrient}<br />{t.quiSeraCelebree}
+                </p>
+
+                {/* Date/Heure - Condensé */}
+                <div className="py-2 md:py-4 mt-0 space-y-3 card-text-animate-delay-5">
+                  <div className="flex flex-col md:flex-row items-center justify-center gap-3 md:gap-6">
+                    <p className="font-serif text-lg md:text-2xl text-[#B8860B] font-semibold tracking-wide">
+                      {language === 'he' ? (
+                        <>
+                          יום שלישי <span className="text-2xl md:text-3xl">14</span> אפריל 2026
+                        </>
+                      ) : (
+                        <>
+                          Mardi <span className="text-2xl md:text-3xl">14</span> Avril 2026
+                        </>
+                      )}
+                    </p>
+                    <span className="text-stone-500 font-sans text-sm md:text-base">27 Nissan 5786</span>
+                  </div>
+                  <p className="font-serif text-lg md:text-2xl text-[#B8860B] font-semibold tracking-wide">
+                    {language === 'he' ? '19:00 בדיוק' : '19H00 précises'}
+                  </p>
+                  <p className="font-serif text-lg md:text-3xl text-stone-600 italic font-light leading-relaxed mt-2">
+                    {t.ainsiQuaLaReception}
+                  </p>
+                </div>
+
+                <div className="mt-4 md:mt-8 opacity-80 card-text-animate-delay-6">
+                  <p className="font-serif italic text-base md:text-xl text-stone-600">{t.aMaMere}</p>
+                  <p className="font-serif italic text-base md:text-xl text-stone-600 mt-0">{t.etAGrandsParents}</p>
+                </div>
+              </div>
             </div>
-            <div className="space-y-1 text-center font-elegant text-stone-700 leading-relaxed text-[13px] md:text-lg">
-              <p dir={language === 'he' ? 'rtl' : 'ltr'}>
-                {language === 'he' ? (
-                  <>ליליאן שמחה <span className="text-gold-foil font-semibold opacity-90">מועאיטי</span></>
-                ) : (
-                  <>{t.familleDroite1} <span className="text-gold-foil font-semibold opacity-90">MOATIE</span></>
-                )}
-              </p>
-              <p dir={language === 'he' ? 'rtl' : 'ltr'}>
-                {language === 'he' ? (
-                  <>מר נסים <span className="text-gold-foil font-semibold opacity-90">אביטבול</span></>
-                ) : (
-                  <>{t.familleDroite2} <span className="text-gold-foil font-semibold opacity-90">ABITBOL</span></>
-                )}
-              </p>
-              <p dir={language === 'he' ? 'rtl' : 'ltr'}>
-                {language === 'he' ? (
-                  <>מר יוסף <span className="text-gold-foil font-semibold opacity-90">סלם</span></>
-                ) : (
-                  <>{t.familleDroite3} <span className="text-gold-foil font-semibold opacity-90">SELLAM</span></>
-                )}
-              </p>
-            </div>
-          </div>
+          </section>
 
-          <div className="max-w-6xl mx-auto space-y-4 md:space-y-8 px-2 md:px-4">
-            <p className="font-serif text-lg md:text-3xl text-stone-600 italic font-light leading-relaxed card-text-animate-delay-2">
-              {language === 'he' ? (
-                <>
-                  {t.remercient} <span className={`text-[#D4AF37] font-semibold not-italic text-xl md:text-3xl ${language === 'he' ? 'hebrew-hachem' : ''}`}>{t.hachem}</span> {t.convier}
-                </>
-              ) : (
-                <>
-                  {t.remercient} <span className={`text-[#D4AF37] font-semibold not-italic text-xl md:text-3xl align-middle ${language === 'he' ? 'hebrew-hachem' : ''}`}>{t.hachem}</span> {t.convier.split('\n').map((line, i, arr) => (
+          {/* VERSET & INFO SALLE ODEON */}
+          <section id="ceremonie" className="py-20 md:py-32 px-4 text-center relative overflow-hidden flex flex-col items-center justify-center">
+            {/* Fond Sarah en arrière-plan */}
+            <div className="absolute inset-0 z-0 bg-cover bg-center" style={{ backgroundImage: 'url("/images/sarah.jpg")', opacity: 0.3 }} />
+            {/* Overlay pour améliorer la lisibilité */}
+            <div className="absolute inset-0 z-0 bg-gradient-to-b from-white/60 via-white/40 to-white/60"></div>
+
+            <div className="max-w-4xl mx-auto relative z-10 w-full">
+              <Star className="w-4 h-4 text-[#B8860B] mx-auto mb-8 animate-pulse opacity-60" />
+              <h2 className="font-elegant text-5xl md:text-7xl leading-tight text-[#B8860B] mb-4 opacity-90">אֲנִי לְדוֹדִי וְדוֹדִי לִי</h2>
+              <p className="text-stone-500 font-light tracking-[0.25em] uppercase text-[10px] mb-10">{t.jeSuisAMonBienaime}</p>
+
+              {/* Infos Salle Odeon */}
+              <div className="space-y-6 bg-white/70 backdrop-blur-sm rounded-sm p-8 md:p-12 shadow-lg border border-[#B8860B]/10">
+                <h3 className="text-[#B8860B] uppercase tracking-[0.25em] text-[10px] flex items-center justify-center gap-2 font-medium mb-4">
+                  <MapPin size={16} /> {t.lieuException}
+                </h3>
+                <h2 className="text-4xl md:text-5xl font-elegant text-stone-800 mb-4">{t.salleOdeonTitle}</h2>
+                <p className="text-stone-600 font-light leading-relaxed text-base md:text-lg mb-4">
+                  {t.cadreEnchanteur}
+                </p>
+                <p className="text-stone-500 italic text-sm md:text-base">
+                  {t.adresse.split('\n').map((line, i, arr) => (
                     <React.Fragment key={i}>
                       {line}
                       {i < arr.length - 1 && <br />}
                     </React.Fragment>
                   ))}
-                </>
-              )}
-            </p>
-
-            {/* Prénoms en Calligraphie Élégante */}
-            <div className="py-2 md:py-6 relative card-text-animate-delay-3">
-              <h2 className={`${language === 'he' ? 'hebrew-names-calligraphy' : 'font-wedding-script'} text-7xl md:text-9xl leading-none mt-2 md:mt-4 text-[#B8860B] tracking-wide`}>
-                {t.hatan} <span className="text-5xl md:text-7xl align-middle opacity-70 text-[#a89078]">&</span> {t.kala}
-              </h2>
-            </div>
-
-            <p className="font-serif text-lg md:text-3xl text-stone-600 italic font-light card-text-animate-delay-4">
-              {t.etVousPrient}<br />{t.quiSeraCelebree}
-            </p>
-
-            {/* Date/Heure - Condensé */}
-            <div className="py-2 md:py-4 mt-0 space-y-3 card-text-animate-delay-5">
-              <div className="flex flex-col md:flex-row items-center justify-center gap-3 md:gap-6">
-                <p className="font-serif text-lg md:text-2xl text-[#B8860B] font-semibold tracking-wide">
-                  {language === 'he' ? (
-                    <>
-                      יום שלישי <span className="text-2xl md:text-3xl">10</span> מרץ 2026
-                    </>
-                  ) : (
-                    <>
-                      Mardi <span className="text-2xl md:text-3xl">10</span> Mars 2026
-                    </>
-                  )}
                 </p>
-                <span className="text-stone-500 font-sans text-sm md:text-base">21 Adar 5786</span>
-              </div>
-              <p className="font-serif text-lg md:text-2xl text-[#B8860B] font-semibold tracking-wide">
-                {language === 'he' ? '19:00 בדיוק' : '19H00 précises'}
-              </p>
-              <p className="font-serif text-lg md:text-3xl text-stone-600 italic font-light leading-relaxed mt-2">
-                {t.ainsiQuaLaReception}
-              </p>
-            </div>
-
-            <div className="mt-4 md:mt-8 opacity-80 card-text-animate-delay-6">
-              <p className="font-serif italic text-base md:text-xl text-stone-600">{t.aMaMere}</p>
-              <p className="font-serif italic text-base md:text-xl text-stone-600 mt-0">{t.etAGrandsParents}</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* VERSET & INFO SALLE ODEON */}
-      <section id="ceremonie" className="py-20 md:py-32 px-4 text-center relative overflow-hidden flex flex-col items-center justify-center">
-        {/* Fond Sarah en arrière-plan */}
-        <div className="absolute inset-0 z-0 bg-cover bg-center" style={{ backgroundImage: 'url("/images/sarah.jpg")', opacity: 0.3 }} />
-        {/* Overlay pour améliorer la lisibilité */}
-        <div className="absolute inset-0 z-0 bg-gradient-to-b from-white/60 via-white/40 to-white/60"></div>
-        
-        <div className="max-w-4xl mx-auto relative z-10 w-full">
-          <Star className="w-4 h-4 text-[#B8860B] mx-auto mb-8 animate-pulse opacity-60" />
-          <h2 className="font-elegant text-5xl md:text-7xl leading-tight text-[#B8860B] mb-4 opacity-90">אֲנִי לְדוֹדִי וְדוֹדִי לִי</h2>
-          <p className="text-stone-500 font-light tracking-[0.25em] uppercase text-[10px] mb-10">{t.jeSuisAMonBienaime}</p>
-
-          {/* Infos Salle Odeon */}
-          <div className="space-y-6 bg-white/70 backdrop-blur-sm rounded-sm p-8 md:p-12 shadow-lg border border-[#B8860B]/10">
-            <h3 className="text-[#B8860B] uppercase tracking-[0.25em] text-[10px] flex items-center justify-center gap-2 font-medium mb-4">
-              <MapPin size={16} /> {t.lieuException}
-            </h3>
-            <h2 className="text-4xl md:text-5xl font-elegant text-stone-800 mb-4">{t.salleOdeonTitle}</h2>
-            <p className="text-stone-600 font-light leading-relaxed text-base md:text-lg mb-4">
-              {t.cadreEnchanteur}
-            </p>
-            <p className="text-stone-500 italic text-sm md:text-base">
-              {t.adresse.split('\n').map((line, i, arr) => (
-                <React.Fragment key={i}>
-                  {line}
-                  {i < arr.length - 1 && <br />}
-                </React.Fragment>
-              ))}
-            </p>
-            <div className="mt-8 pt-6 border-t border-[#B8860B]/20 flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <a 
-                href={googleCalendarLink} 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="inline-flex items-center justify-center gap-3 px-8 py-4 border border-[#B8860B]/40 text-[#B8860B] hover:bg-[#B8860B]/5 transition-all rounded-sm group"
-              >
-                <CalendarPlus size={18} className="group-hover:scale-110 transition-transform" />
-                <span className="uppercase tracking-[0.15em] text-[10px] font-medium">{t.ajouterAgenda}</span>
-              </a>
-              <a 
-                href={wazeLink} 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-[#B8860B] text-white hover:bg-[#9A7009] transition-all shadow-xl shadow-[#B8860B]/20 rounded-sm group"
-              >
-                <Navigation size={18} className="group-hover:scale-110 transition-transform" />
-                <span className="uppercase tracking-[0.15em] text-[10px] font-medium">{t.yAllerWaze}</span>
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-
-      {/* RSVP */}
-      <section id="rsvp" className="py-20 md:py-32 px-4 relative">
-        <div className="max-w-2xl mx-auto relative z-10 p-8 md:p-16" style={{ backgroundColor: '#FAF8F3' }}>
-          <div className="text-center mb-12">
-            <h2 className="font-elegant text-4xl md:text-5xl text-[#8B7355] mb-3 font-light">{t.rsvp}</h2>
-            <div className="flex items-center justify-center gap-3 mt-5">
-              <span className="h-px w-12 bg-[#8B7355]/40"></span>
-              <p className="text-[#8B7355] text-[10px] uppercase tracking-[0.3em] font-medium">{t.reponseSouhaitee}</p>
-              <span className="h-px w-12 bg-[#8B7355]/40"></span>
-            </div>
-          </div>
-
-          {!rsvpSent ? (
-            <form onSubmit={async (e) => { 
-              e.preventDefault(); 
-              
-              // Validation côté client
-              if (rsvpData.presence === 'oui' && !rsvpData.houppa && !rsvpData.soiree) {
-                alert('Veuillez sélectionner au moins la Houppa ou la Soirée si vous êtes présent(e).');
-                return;
-              }
-              
-              setIsSubmitting(true);
-              try {
-                // Google Apps Script nécessite mode 'no-cors' pour éviter les erreurs preflight
-                // On utilise FormData pour une meilleure compatibilité
-                const formData = new URLSearchParams();
-                formData.append('prenom', rsvpData.prenom);
-                formData.append('nom', rsvpData.nom);
-                formData.append('adultes', rsvpData.adultes);
-                formData.append('enfants', rsvpData.enfants);
-                formData.append('presence', rsvpData.presence);
-                formData.append('houppa', rsvpData.houppa ? 'true' : 'false');
-                formData.append('soiree', rsvpData.soiree ? 'true' : 'false');
-                formData.append('message', guestMessage);
-
-                // Envoyer avec no-cors (on ne peut pas lire la réponse mais ça fonctionne)
-                await fetch(API_URL, {
-                  method: 'POST',
-                  mode: 'no-cors',
-                  body: formData
-                });
-
-                // Avec no-cors, on ne peut pas vérifier la réponse, mais si pas d'erreur, c'est envoyé
-                // Attendre un peu pour laisser le temps à Google Apps Script de traiter
-                await new Promise(resolve => setTimeout(resolve, 1500));
-                setRsvpSent(true);
-              } catch (error) {
-                console.error('Erreur:', error);
-                // Même en cas d'erreur, on considère que c'est envoyé (Google Apps Script peut enregistrer malgré CORS)
-                setRsvpSent(true);
-              } finally {
-                setIsSubmitting(false);
-              }
-            }} className="space-y-10">
-              {/* Nom et Prénom */}
-              <div className="grid grid-cols-2 gap-8">
-                <div className="space-y-2">
-                  <label className="text-[9px] uppercase tracking-[0.3em] text-[#8B7355] font-light">{t.prenom}</label>
-                  <div className="relative">
-                    <input 
-                      type="text" 
-                      required 
-                      value={rsvpData.prenom}
-                      onChange={(e) => setRsvpData({...rsvpData, prenom: e.target.value})}
-                      className="block w-full bg-transparent border-0 border-b-2 border-[#8B7355]/50 p-2 text-[#5A4A3A] text-base font-elegant focus:border-[#8B7355]/80 focus:bg-transparent focus:outline-none transition-all duration-300 placeholder:text-[#8B7355]/50 placeholder:font-light" 
-                      placeholder="____________" 
-                    />
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <label className="text-[9px] uppercase tracking-[0.3em] text-[#8B7355] font-light">{t.nom}</label>
-                  <div className="relative">
-                    <input 
-                      type="text" 
-                      required 
-                      value={rsvpData.nom}
-                      onChange={(e) => setRsvpData({...rsvpData, nom: e.target.value})}
-                      className="block w-full bg-transparent border-0 border-b-2 border-[#8B7355]/50 p-2 text-[#5A4A3A] text-base font-elegant focus:border-[#8B7355]/80 focus:bg-transparent focus:outline-none transition-all duration-300 placeholder:text-[#8B7355]/50 placeholder:font-light" 
-                      placeholder="____________" 
-                    />
-                  </div>
-                </div>
-              </div>
-
-              {/* Nombre d'invités */}
-              <div className="grid grid-cols-2 gap-8">
-                <div className="space-y-2">
-                  <label className="text-[9px] uppercase tracking-[0.3em] text-[#8B7355] font-light">{t.adultes}</label>
-                  <select 
-                    value={rsvpData.adultes}
-                    onChange={(e) => setRsvpData({...rsvpData, adultes: e.target.value})}
-                    className="w-full bg-transparent border-0 border-b-2 border-[#8B7355]/50 p-2 text-[#5A4A3A] text-base font-elegant outline-none focus:border-[#8B7355]/80 transition-all duration-300 appearance-none cursor-pointer"
+                <div className="mt-8 pt-6 border-t border-[#B8860B]/20 flex flex-col sm:flex-row gap-4 justify-center items-center">
+                  <a
+                    href={googleCalendarLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-3 px-8 py-4 border border-[#B8860B]/40 text-[#B8860B] hover:bg-[#B8860B]/5 transition-all rounded-sm group"
                   >
-                    <option value="0">0</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                  </select>
-                </div>
-                <div className="space-y-2">
-                  <label className="text-[9px] uppercase tracking-[0.3em] text-[#8B7355] font-light">{t.enfants}</label>
-                  <select 
-                    value={rsvpData.enfants}
-                    onChange={(e) => setRsvpData({...rsvpData, enfants: e.target.value})}
-                    className="w-full bg-transparent border-0 border-b-2 border-[#8B7355]/50 p-2 text-[#5A4A3A] text-base font-elegant outline-none focus:border-[#8B7355]/80 transition-all duration-300 appearance-none cursor-pointer"
+                    <CalendarPlus size={18} className="group-hover:scale-110 transition-transform" />
+                    <span className="uppercase tracking-[0.15em] text-[10px] font-medium">{t.ajouterAgenda}</span>
+                  </a>
+                  <a
+                    href={wazeLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-[#B8860B] text-white hover:bg-[#9A7009] transition-all shadow-xl shadow-[#B8860B]/20 rounded-sm group"
                   >
-                    <option value="0">0</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                    <option value="11">11</option>
-                    <option value="12">12</option>
-                  </select>
+                    <Navigation size={18} className="group-hover:scale-110 transition-transform" />
+                    <span className="uppercase tracking-[0.15em] text-[10px] font-medium">{t.yAllerWaze}</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </section>
+
+
+          {/* RSVP */}
+          <section id="rsvp" className="py-20 md:py-32 px-4 relative">
+            <div className="max-w-2xl mx-auto relative z-10 p-8 md:p-16" style={{ backgroundColor: '#FAF8F3' }}>
+              <div className="text-center mb-12">
+                <h2 className="font-elegant text-4xl md:text-5xl text-[#8B7355] mb-3 font-light">{t.rsvp}</h2>
+                <div className="flex items-center justify-center gap-3 mt-5">
+                  <span className="h-px w-12 bg-[#8B7355]/40"></span>
+                  <p className="text-[#8B7355] text-[10px] uppercase tracking-[0.3em] font-medium">{t.reponseSouhaitee}</p>
+                  <span className="h-px w-12 bg-[#8B7355]/40"></span>
                 </div>
               </div>
 
-              {/* Présence */}
-              <div className="space-y-4 pt-2">
-                <label className="block text-[#8B7355] text-[9px] uppercase tracking-[0.3em] font-light mb-6">{t.confirmezPresence}</label>
-                <div className="flex gap-8 justify-center">
-                  <label className="flex items-center gap-3 cursor-pointer group">
-                    <input 
-                      type="radio" 
-                      name="presence" 
-                      value="oui"
-                      checked={rsvpData.presence === 'oui'}
-                      onChange={(e) => setRsvpData({...rsvpData, presence: e.target.value})}
-                      className="sr-only"
-                      required
-                    />
-                    <div className="flex items-center gap-2">
-                      <div className={`w-4 h-4 rounded-full border transition-all duration-300 ${rsvpData.presence === 'oui' ? 'border-[#8B7355]/50 bg-[#8B7355]/10' : 'border-[#8B7355]/20 bg-transparent'}`}>
-                        {rsvpData.presence === 'oui' && (
-                          <div className="w-full h-full rounded-full bg-[#8B7355]/30 m-0.5"></div>
-                        )}
-                      </div>
-                      <span className={`text-base font-elegant transition-colors ${rsvpData.presence === 'oui' ? 'text-[#5A4A3A]' : 'text-[#8B7355]/50'}`}>
-                        {t.ouiPresent}
-                      </span>
-                    </div>
-                  </label>
-                  <span className="text-[#8B7355]/20 font-elegant">•</span>
-                  <label className="flex items-center gap-3 cursor-pointer group">
-                    <input 
-                      type="radio" 
-                      name="presence" 
-                      value="non"
-                      checked={rsvpData.presence === 'non'}
-                      onChange={(e) => setRsvpData({...rsvpData, presence: e.target.value, adultes: '0', enfants: '0', houppa: false, soiree: false})}
-                      className="sr-only"
-                      required
-                    />
-                    <div className="flex items-center gap-2">
-                      <div className={`w-4 h-4 rounded-full border transition-all duration-300 ${rsvpData.presence === 'non' ? 'border-[#8B7355]/50 bg-[#8B7355]/10' : 'border-[#8B7355]/20 bg-transparent'}`}>
-                        {rsvpData.presence === 'non' && (
-                          <div className="w-full h-full rounded-full bg-[#8B7355]/30 m-0.5"></div>
-                        )}
-                      </div>
-                      <span className={`text-base font-elegant transition-colors ${rsvpData.presence === 'non' ? 'text-[#5A4A3A]' : 'text-[#8B7355]/50'}`}>
-                        {t.nonPresent}
-                      </span>
-                    </div>
-                  </label>
-                </div>
-              </div>
+              {!rsvpSent ? (
+                <form onSubmit={async (e) => {
+                  e.preventDefault();
 
-              {/* Options Houppa & Soirée (seulement si présent) */}
-              {rsvpData.presence === 'oui' && (
-                <div className="space-y-4 pt-4 border-t border-[#8B7355]/30">
-                  <label className="block text-[#8B7355] text-[9px] uppercase tracking-[0.3em] font-light mb-5">{t.jeSeraiPresentA}</label>
-                  <div className="space-y-4 pl-2">
-                    <label className="flex items-center gap-3 cursor-pointer group">
-                      <input 
-                        type="checkbox" 
-                        checked={rsvpData.houppa}
-                        onChange={(e) => setRsvpData({...rsvpData, houppa: e.target.checked})}
-                        className="sr-only"
-                      />
-                      <div className={`w-4 h-4 border rounded-sm transition-all duration-300 flex items-center justify-center ${rsvpData.houppa ? 'border-[#8B7355]/40 bg-[#8B7355]/5' : 'border-[#8B7355]/20 bg-transparent'}`}>
-                        {rsvpData.houppa && (
-                          <div className="w-2 h-2 bg-[#8B7355]/40 rounded-sm"></div>
-                        )}
+                  // Validation côté client
+                  if (rsvpData.presence === 'oui' && !rsvpData.houppa && !rsvpData.soiree) {
+                    alert('Veuillez sélectionner au moins la Houppa ou la Soirée si vous êtes présent(e).');
+                    return;
+                  }
+
+                  setIsSubmitting(true);
+                  try {
+                    // Google Apps Script nécessite mode 'no-cors' pour éviter les erreurs preflight
+                    // On utilise FormData pour une meilleure compatibilité
+                    const formData = new URLSearchParams();
+                    formData.append('prenom', rsvpData.prenom);
+                    formData.append('nom', rsvpData.nom);
+                    formData.append('adultes', rsvpData.adultes);
+                    formData.append('enfants', rsvpData.enfants);
+                    formData.append('presence', rsvpData.presence);
+                    formData.append('houppa', rsvpData.houppa ? 'true' : 'false');
+                    formData.append('soiree', rsvpData.soiree ? 'true' : 'false');
+                    formData.append('message', guestMessage);
+
+                    // Envoyer avec no-cors (on ne peut pas lire la réponse mais ça fonctionne)
+                    await fetch(API_URL, {
+                      method: 'POST',
+                      mode: 'no-cors',
+                      body: formData
+                    });
+
+                    // Avec no-cors, on ne peut pas vérifier la réponse, mais si pas d'erreur, c'est envoyé
+                    // Attendre un peu pour laisser le temps à Google Apps Script de traiter
+                    await new Promise(resolve => setTimeout(resolve, 1500));
+                    setRsvpSent(true);
+                  } catch (error) {
+                    console.error('Erreur:', error);
+                    // Même en cas d'erreur, on considère que c'est envoyé (Google Apps Script peut enregistrer malgré CORS)
+                    setRsvpSent(true);
+                  } finally {
+                    setIsSubmitting(false);
+                  }
+                }} className="space-y-10">
+                  {/* Nom et Prénom */}
+                  <div className="grid grid-cols-2 gap-8">
+                    <div className="space-y-2">
+                      <label className="text-[9px] uppercase tracking-[0.3em] text-[#8B7355] font-light">{t.prenom}</label>
+                      <div className="relative">
+                        <input
+                          type="text"
+                          required
+                          value={rsvpData.prenom}
+                          onChange={(e) => setRsvpData({ ...rsvpData, prenom: e.target.value })}
+                          className="block w-full bg-transparent border-0 border-b-2 border-[#8B7355]/50 p-2 text-[#5A4A3A] text-base font-elegant focus:border-[#8B7355]/80 focus:bg-transparent focus:outline-none transition-all duration-300 placeholder:text-[#8B7355]/50 placeholder:font-light"
+                          placeholder="____________"
+                        />
                       </div>
-                      <span className={`text-base font-elegant transition-colors ${rsvpData.houppa ? 'text-[#5A4A3A]' : 'text-[#8B7355]/50'}`}>
-                        {t.jeSeraiPresentHouppa}
-                      </span>
-                    </label>
-                    <label className="flex items-center gap-3 cursor-pointer group">
-                      <input 
-                        type="checkbox" 
-                        checked={rsvpData.soiree}
-                        onChange={(e) => setRsvpData({...rsvpData, soiree: e.target.checked})}
-                        className="sr-only"
-                      />
-                      <div className={`w-4 h-4 border rounded-sm transition-all duration-300 flex items-center justify-center ${rsvpData.soiree ? 'border-[#8B7355]/40 bg-[#8B7355]/5' : 'border-[#8B7355]/20 bg-transparent'}`}>
-                        {rsvpData.soiree && (
-                          <div className="w-2 h-2 bg-[#8B7355]/40 rounded-sm"></div>
-                        )}
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-[9px] uppercase tracking-[0.3em] text-[#8B7355] font-light">{t.nom}</label>
+                      <div className="relative">
+                        <input
+                          type="text"
+                          required
+                          value={rsvpData.nom}
+                          onChange={(e) => setRsvpData({ ...rsvpData, nom: e.target.value })}
+                          className="block w-full bg-transparent border-0 border-b-2 border-[#8B7355]/50 p-2 text-[#5A4A3A] text-base font-elegant focus:border-[#8B7355]/80 focus:bg-transparent focus:outline-none transition-all duration-300 placeholder:text-[#8B7355]/50 placeholder:font-light"
+                          placeholder="____________"
+                        />
                       </div>
-                      <span className={`text-base font-elegant transition-colors ${rsvpData.soiree ? 'text-[#5A4A3A]' : 'text-[#8B7355]/50'}`}>
-                        {t.jeSeraiPresentSoiree}
-                      </span>
-                    </label>
+                    </div>
                   </div>
+
+                  {/* Nombre d'invités */}
+                  <div className="grid grid-cols-2 gap-8">
+                    <div className="space-y-2">
+                      <label className="text-[9px] uppercase tracking-[0.3em] text-[#8B7355] font-light">{t.adultes}</label>
+                      <select
+                        value={rsvpData.adultes}
+                        onChange={(e) => setRsvpData({ ...rsvpData, adultes: e.target.value })}
+                        className="w-full bg-transparent border-0 border-b-2 border-[#8B7355]/50 p-2 text-[#5A4A3A] text-base font-elegant outline-none focus:border-[#8B7355]/80 transition-all duration-300 appearance-none cursor-pointer"
+                      >
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                      </select>
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-[9px] uppercase tracking-[0.3em] text-[#8B7355] font-light">{t.enfants}</label>
+                      <select
+                        value={rsvpData.enfants}
+                        onChange={(e) => setRsvpData({ ...rsvpData, enfants: e.target.value })}
+                        className="w-full bg-transparent border-0 border-b-2 border-[#8B7355]/50 p-2 text-[#5A4A3A] text-base font-elegant outline-none focus:border-[#8B7355]/80 transition-all duration-300 appearance-none cursor-pointer"
+                      >
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  {/* Présence */}
+                  <div className="space-y-4 pt-2">
+                    <label className="block text-[#8B7355] text-[9px] uppercase tracking-[0.3em] font-light mb-6">{t.confirmezPresence}</label>
+                    <div className="flex gap-8 justify-center">
+                      <label className="flex items-center gap-3 cursor-pointer group">
+                        <input
+                          type="radio"
+                          name="presence"
+                          value="oui"
+                          checked={rsvpData.presence === 'oui'}
+                          onChange={(e) => setRsvpData({ ...rsvpData, presence: e.target.value })}
+                          className="sr-only"
+                          required
+                        />
+                        <div className="flex items-center gap-2">
+                          <div className={`w-4 h-4 rounded-full border transition-all duration-300 ${rsvpData.presence === 'oui' ? 'border-[#8B7355]/50 bg-[#8B7355]/10' : 'border-[#8B7355]/20 bg-transparent'}`}>
+                            {rsvpData.presence === 'oui' && (
+                              <div className="w-full h-full rounded-full bg-[#8B7355]/30 m-0.5"></div>
+                            )}
+                          </div>
+                          <span className={`text-base font-elegant transition-colors ${rsvpData.presence === 'oui' ? 'text-[#5A4A3A]' : 'text-[#8B7355]/50'}`}>
+                            {t.ouiPresent}
+                          </span>
+                        </div>
+                      </label>
+                      <span className="text-[#8B7355]/20 font-elegant">•</span>
+                      <label className="flex items-center gap-3 cursor-pointer group">
+                        <input
+                          type="radio"
+                          name="presence"
+                          value="non"
+                          checked={rsvpData.presence === 'non'}
+                          onChange={(e) => setRsvpData({ ...rsvpData, presence: e.target.value, adultes: '0', enfants: '0', houppa: false, soiree: false })}
+                          className="sr-only"
+                          required
+                        />
+                        <div className="flex items-center gap-2">
+                          <div className={`w-4 h-4 rounded-full border transition-all duration-300 ${rsvpData.presence === 'non' ? 'border-[#8B7355]/50 bg-[#8B7355]/10' : 'border-[#8B7355]/20 bg-transparent'}`}>
+                            {rsvpData.presence === 'non' && (
+                              <div className="w-full h-full rounded-full bg-[#8B7355]/30 m-0.5"></div>
+                            )}
+                          </div>
+                          <span className={`text-base font-elegant transition-colors ${rsvpData.presence === 'non' ? 'text-[#5A4A3A]' : 'text-[#8B7355]/50'}`}>
+                            {t.nonPresent}
+                          </span>
+                        </div>
+                      </label>
+                    </div>
+                  </div>
+
+                  {/* Options Houppa & Soirée (seulement si présent) */}
+                  {rsvpData.presence === 'oui' && (
+                    <div className="space-y-4 pt-4 border-t border-[#8B7355]/30">
+                      <label className="block text-[#8B7355] text-[9px] uppercase tracking-[0.3em] font-light mb-5">{t.jeSeraiPresentA}</label>
+                      <div className="space-y-4 pl-2">
+                        <label className="flex items-center gap-3 cursor-pointer group">
+                          <input
+                            type="checkbox"
+                            checked={rsvpData.houppa}
+                            onChange={(e) => setRsvpData({ ...rsvpData, houppa: e.target.checked })}
+                            className="sr-only"
+                          />
+                          <div className={`w-4 h-4 border rounded-sm transition-all duration-300 flex items-center justify-center ${rsvpData.houppa ? 'border-[#8B7355]/40 bg-[#8B7355]/5' : 'border-[#8B7355]/20 bg-transparent'}`}>
+                            {rsvpData.houppa && (
+                              <div className="w-2 h-2 bg-[#8B7355]/40 rounded-sm"></div>
+                            )}
+                          </div>
+                          <span className={`text-base font-elegant transition-colors ${rsvpData.houppa ? 'text-[#5A4A3A]' : 'text-[#8B7355]/50'}`}>
+                            {t.jeSeraiPresentHouppa}
+                          </span>
+                        </label>
+                        <label className="flex items-center gap-3 cursor-pointer group">
+                          <input
+                            type="checkbox"
+                            checked={rsvpData.soiree}
+                            onChange={(e) => setRsvpData({ ...rsvpData, soiree: e.target.checked })}
+                            className="sr-only"
+                          />
+                          <div className={`w-4 h-4 border rounded-sm transition-all duration-300 flex items-center justify-center ${rsvpData.soiree ? 'border-[#8B7355]/40 bg-[#8B7355]/5' : 'border-[#8B7355]/20 bg-transparent'}`}>
+                            {rsvpData.soiree && (
+                              <div className="w-2 h-2 bg-[#8B7355]/40 rounded-sm"></div>
+                            )}
+                          </div>
+                          <span className={`text-base font-elegant transition-colors ${rsvpData.soiree ? 'text-[#5A4A3A]' : 'text-[#8B7355]/50'}`}>
+                            {t.jeSeraiPresentSoiree}
+                          </span>
+                        </label>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Message (obligatoire si présent) */}
+                  <div className="space-y-2 pt-4 border-t border-[#8B7355]/30">
+                    <label className="text-[#8B7355] text-[9px] uppercase tracking-[0.3em] font-light">
+                      {t.petitMot} {rsvpData.presence === 'oui' ? '*' : ''}
+                    </label>
+                    <textarea
+                      value={guestMessage}
+                      onChange={(e) => setGuestMessage(e.target.value)}
+                      required={rsvpData.presence === 'oui'}
+                      className="block w-full bg-transparent border-0 border-b-2 border-[#8B7355]/50 p-2 text-[#5A4A3A] font-elegant text-base h-24 focus:border-[#8B7355]/80 focus:outline-none focus:bg-transparent transition-all duration-300 resize-none placeholder:text-[#8B7355]/50 placeholder:font-light placeholder:italic"
+                      placeholder={rsvpData.presence === 'oui' ? "..." : "..."}
+                    ></textarea>
+                  </div>
+
+                  {/* Bouton de soumission */}
+                  <div className="pt-10 flex justify-center">
+                    <button
+                      type="submit"
+                      disabled={isSubmitting || (rsvpData.presence === 'oui' && !rsvpData.houppa && !rsvpData.soiree)}
+                      className="px-10 py-3 border-2 border-[#8B7355]/70 text-[#8B7355] uppercase tracking-[0.25em] text-[10px] font-medium transition-all duration-300 hover:border-[#8B7355] hover:text-[#5A4A3A] hover:bg-[#8B7355]/5 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:border-[#8B7355]/70 disabled:hover:text-[#8B7355] disabled:hover:bg-transparent"
+                    >
+                      {isSubmitting ? t.envoiEnCours : t.confirmerReponse}
+                    </button>
+                  </div>
+                </form>
+              ) : (
+                <div className="text-center py-16 animate-fadeIn">
+                  <div className="flex items-center justify-center gap-3 mb-6">
+                    <span className="h-px w-12 bg-[#8B7355]/20"></span>
+                    <Wine className="text-[#8B7355]/50 w-6 h-6" />
+                    <span className="h-px w-12 bg-[#8B7355]/20"></span>
+                  </div>
+                  <span className="font-names text-4xl md:text-5xl text-[#8B7355] block mb-6 font-light">{t.todaRaba}</span>
+                  <p className="text-[#5A4A3A] font-elegant text-base leading-relaxed">
+                    {t.reponseEnregistree.split('\n').map((line, i, arr) => (
+                      <React.Fragment key={i}>
+                        {line}
+                        {i < arr.length - 1 && <br />}
+                      </React.Fragment>
+                    ))}
+                  </p>
                 </div>
               )}
-
-              {/* Message (obligatoire si présent) */}
-              <div className="space-y-2 pt-4 border-t border-[#8B7355]/30">
-                <label className="text-[#8B7355] text-[9px] uppercase tracking-[0.3em] font-light">
-                  {t.petitMot} {rsvpData.presence === 'oui' ? '*' : ''}
-                </label>
-                <textarea 
-                  value={guestMessage}
-                  onChange={(e) => setGuestMessage(e.target.value)} 
-                  required={rsvpData.presence === 'oui'}
-                  className="block w-full bg-transparent border-0 border-b-2 border-[#8B7355]/50 p-2 text-[#5A4A3A] font-elegant text-base h-24 focus:border-[#8B7355]/80 focus:outline-none focus:bg-transparent transition-all duration-300 resize-none placeholder:text-[#8B7355]/50 placeholder:font-light placeholder:italic" 
-                  placeholder={rsvpData.presence === 'oui' ? "..." : "..."}
-                ></textarea>
-              </div>
-
-              {/* Bouton de soumission */}
-              <div className="pt-10 flex justify-center">
-                <button 
-                  type="submit"
-                  disabled={isSubmitting || (rsvpData.presence === 'oui' && !rsvpData.houppa && !rsvpData.soiree)}
-                  className="px-10 py-3 border-2 border-[#8B7355]/70 text-[#8B7355] uppercase tracking-[0.25em] text-[10px] font-medium transition-all duration-300 hover:border-[#8B7355] hover:text-[#5A4A3A] hover:bg-[#8B7355]/5 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:border-[#8B7355]/70 disabled:hover:text-[#8B7355] disabled:hover:bg-transparent"
-                >
-                  {isSubmitting ? t.envoiEnCours : t.confirmerReponse}
-              </button>
-              </div>
-            </form>
-          ) : (
-            <div className="text-center py-16 animate-fadeIn">
-              <div className="flex items-center justify-center gap-3 mb-6">
-                <span className="h-px w-12 bg-[#8B7355]/20"></span>
-                <Wine className="text-[#8B7355]/50 w-6 h-6" />
-                <span className="h-px w-12 bg-[#8B7355]/20"></span>
-              </div>
-              <span className="font-names text-4xl md:text-5xl text-[#8B7355] block mb-6 font-light">{t.todaRaba}</span>
-              <p className="text-[#5A4A3A] font-elegant text-base leading-relaxed">
-                {t.reponseEnregistree.split('\n').map((line, i, arr) => (
-                  <React.Fragment key={i}>
-                    {line}
-                    {i < arr.length - 1 && <br />}
-                  </React.Fragment>
-                ))}
-              </p>
             </div>
-          )}
+          </section >
+
+          {/* FOOTER */}
+          < footer className="bg-white/80 backdrop-blur-md py-12 md:py-20 text-center border-t border-[#B8860B]/10" >
+            <p className={`${language === 'he' ? 'hebrew-names-calligraphy' : 'font-names'} text-3xl md:text-4xl mb-6 tracking-wide text-[#B8860B]`}>
+              {language === 'he' ? `${t.hatan} & ${t.kala}` : 'Reouven & Sarah'}
+            </p>
+            <p className="text-[10px] uppercase tracking-[0.3em] text-stone-400">14 . 04 . 2026</p>
+          </footer >
+
+          {/* BARRE NAVIGATION MOBILE (Type App) */}
+          < div className="md:hidden fixed bottom-0 left-0 w-full bg-white/95 backdrop-blur-md border-t border-[#B8860B]/10 flex justify-around items-center py-3 z-50 pb-safe shadow-[0_-5px_20px_rgba(0,0,0,0.05)]" >
+            <a href="#home" className="flex flex-col items-center gap-1 text-[#B8860B]">
+              <Home size={18} strokeWidth={1.5} />
+              <span className="text-[8px] uppercase tracking-widest font-medium">{t.accueil}</span>
+            </a>
+            <a href="#familles" className="flex flex-col items-center gap-1 text-stone-400 hover:text-[#B8860B] transition-colors">
+              <Users size={18} strokeWidth={1.5} />
+              <span className="text-[8px] uppercase tracking-widest font-medium">{t.famille}</span>
+            </a>
+            <a href="#ceremonie" className="flex flex-col items-center gap-1 text-stone-400 hover:text-[#B8860B] transition-colors">
+              <MapPin size={18} strokeWidth={1.5} />
+              <span className="text-[8px] uppercase tracking-widest font-medium">{t.lieu}</span>
+            </a>
+            <a href="#rsvp" className="flex flex-col items-center gap-1 text-stone-400 hover:text-[#B8860B] transition-colors">
+              <Send size={18} strokeWidth={1.5} />
+              <span className="text-[8px] uppercase tracking-widest font-medium">{t.rsvpNav}</span>
+            </a>
+          </div >
+
         </div>
-      </section >
-
-      {/* FOOTER */}
-      < footer className="bg-white/80 backdrop-blur-md py-12 md:py-20 text-center border-t border-[#B8860B]/10" >
-        <p className={`${language === 'he' ? 'hebrew-names-calligraphy' : 'font-names'} text-3xl md:text-4xl mb-6 tracking-wide text-[#B8860B]`}>
-          {language === 'he' ? `${t.hatan} & ${t.kala}` : 'Reouven & Sarah'}
-        </p>
-        <p className="text-[10px] uppercase tracking-[0.3em] text-stone-400">10 . 03 . 2026</p>
-      </footer >
-
-      {/* BARRE NAVIGATION MOBILE (Type App) */}
-      < div className="md:hidden fixed bottom-0 left-0 w-full bg-white/95 backdrop-blur-md border-t border-[#B8860B]/10 flex justify-around items-center py-3 z-50 pb-safe shadow-[0_-5px_20px_rgba(0,0,0,0.05)]" >
-        <a href="#home" className="flex flex-col items-center gap-1 text-[#B8860B]">
-          <Home size={18} strokeWidth={1.5} />
-          <span className="text-[8px] uppercase tracking-widest font-medium">{t.accueil}</span>
-        </a>
-        <a href="#familles" className="flex flex-col items-center gap-1 text-stone-400 hover:text-[#B8860B] transition-colors">
-          <Users size={18} strokeWidth={1.5} />
-          <span className="text-[8px] uppercase tracking-widest font-medium">{t.famille}</span>
-        </a>
-        <a href="#ceremonie" className="flex flex-col items-center gap-1 text-stone-400 hover:text-[#B8860B] transition-colors">
-          <MapPin size={18} strokeWidth={1.5} />
-          <span className="text-[8px] uppercase tracking-widest font-medium">{t.lieu}</span>
-        </a>
-        <a href="#rsvp" className="flex flex-col items-center gap-1 text-stone-400 hover:text-[#B8860B] transition-colors">
-          <Send size={18} strokeWidth={1.5} />
-          <span className="text-[8px] uppercase tracking-widest font-medium">{t.rsvpNav}</span>
-        </a>
-      </div >
-
-            </div>
       )}
 
 
